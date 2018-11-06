@@ -6,6 +6,7 @@
         "type": "string"
       },
       "asgNames": { 
+        "type": "array" 
       },
       "customTages": {
         "type": "object"
