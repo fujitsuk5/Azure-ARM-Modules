@@ -36,12 +36,7 @@
                         "access": "Allow",
                         "priority": 100,
                         "protocol": "Tcp",
-                        "destinationPortRange": "80",
-                        "destinationApplicationSecurityGroups": [
-                            {
-                                "id": "[variables('rdpAsgId')]"
-                            }
-                        ]   
+                        "destinationPortRange": "80"
                     }
 
                 }
