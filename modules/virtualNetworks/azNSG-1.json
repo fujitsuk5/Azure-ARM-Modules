@@ -2,26 +2,56 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "asgName": {
+      "rdpNsgName": {
         "type": "string"
+      },
+      "rdpNsgRules": {
+        "type": "array"
       },
       "customTages": {
         "type": "object"
       }
     },
     "variables": {
-      "location": "[resourceGroup().location]" 
-        
+      "location": "[resourceGroup().location]",
+      "rdpAsgName": "rdpServersAsg",
+      "rdpAsgId": "[resourceId('Microsoft.Network/applicationSecurityGroups',variables('rdpAsgName'))]"
     },
     "resources": [
       {
-        "name": "[parameters('asgName')]",
-        "type": "Microsoft.Network/applicationSecurityGroups",
+        "comments": "Network Security Group",
+        "name": "[parameters('rdpNsgName')]",
+        "copy" : {
+            "name": "nsgRules",
+            "count": "[length(parameters('rdpNSGRules').rules)]"
+          },
+        "type": "Microsoft.Network/networkSecurityGroups",
         "apiVersion": "2018-08-01",
-        "dependsOn": [],
         "tags": "[parameters('customTages')]",
         "location": "[variables('location')]",
-        "properties": {}  
+        "properties": {
+            "securityRules": [
+                {
+                    "name": "parameters('rdpNSGRules').rules.[copyIndex()].name",
+                    "properties": {
+                        "description": "parameters('rdpNSGRules').rules.[copyIndex()].description",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "direction": "Inbound",
+                        "access": "Allow",
+                        "priority": 100,
+                        "protocol": "Tcp",
+                        "destinationPortRange": "80",
+                        "destinationApplicationSecurityGroups": [
+                            {
+                                "id": "[variables('rdpAsgId')]"
+                            }
+                        ]   
+                    }
+
+                }
+            ]
+        }
       }
     ],
     "outputs": {
