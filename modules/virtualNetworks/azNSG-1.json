@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.1",
     "parameters": {
       "module-NSG-1": {
-        "type": "array"
+        "type": "object"
       },
       "customTages": {
         "type": "object"
