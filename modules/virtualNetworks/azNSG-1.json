@@ -5,6 +5,9 @@
       "module-NSG-1": {
         "type": "object"
       },
+      "asgName": {
+        "type": "string"
+      },
       "customTages": {
         "type": "object"
       }
@@ -36,7 +39,12 @@
                         "access": "Allow",
                         "priority": 100,
                         "protocol": "Tcp",
-                        "destinationPortRange": "80"
+                        "destinationPortRange": "80",
+                        "destinationApplicationSecurityGroups": [
+                            {
+                                "id": "[parameters('asgName')]"
+                            }
+                        ] 
                     }
 
                 }
