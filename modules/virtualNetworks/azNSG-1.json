@@ -33,14 +33,14 @@
                 {
                     "name": "[parameters('module-NSG-1').rules[copyIndex()].name]",
                     "properties": {
-                        "description": "parameters('module-NSG-1').rules.[copyIndex()].description",
-                        "sourceAddressPrefix": "parameters('module-NSG-1').rules.[copyIndex()].sourceAddressPrefix",
-                        "sourcePortRange": "parameters('module-NSG-1').rules.[copyIndex()].sourcePortRange",
-                        "direction": "parameters('module-NSG-1').rules.[copyIndex()].direction",
-                        "access": "Allow",
-                        "priority": 100,
-                        "protocol": "parameters('module-NSG-1').rules.[copyIndex()].protocol",
-                        "destinationPortRange": "parameters('module-NSG-1').rules.[copyIndex()].destinationPortRange",
+                        "description": "[parameters('module-NSG-1').rules[copyIndex()].description]",
+                        "sourceAddressPrefix": "[parameters('module-NSG-1').rules[copyIndex()].sourceAddressPrefix]",
+                        "sourcePortRange": "[parameters('module-NSG-1').rules[copyIndex()].sourcePortRange]",
+                        "direction": "[parameters('module-NSG-1').rules[copyIndex()].direction]",
+                        "access": "[parameters('module-NSG-1').rules[copyIndex()].access]",
+                        "priority": "[parameters('module-NSG-1').rules[copyIndex()].priority]",
+                        "protocol": "[parameters('module-NSG-1').rules[copyIndex()].protocol]",
+                        "destinationPortRange": "[parameters('module-NSG-1').rules[copyIndex()].destinationPortRange]",
                         "destinationApplicationSecurityGroups": [
                             {
                                 "id": "[variables('appAsgId')]"
