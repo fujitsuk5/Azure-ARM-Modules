@@ -4,6 +4,9 @@
     "parameters": {
       "asgName": {
         "type": "string"
+      },
+      "customTages": {
+        "type": "object"
       }
     },
     "variables": {
@@ -15,6 +18,8 @@
         "name": "[parameters('asgName')]",
         "type": "Microsoft.Network/applicationSecurityGroups",
         "apiVersion": "2018-08-01",
+        "dependsOn": [],
+        "tags": "[parameters('customTages')]",
         "location": "[variables('location')]",
         "properties": {}  
       }
