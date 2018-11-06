@@ -13,7 +13,8 @@
       }
     },
     "variables": {
-      "location": "[resourceGroup().location]"
+      "location": "[resourceGroup().location]",
+      "appAsgId": "[resourceId('Microsoft.Network/applicationSecurityGroups',variables('asgName'))]"
     },
     "resources": [
       {
@@ -42,7 +43,7 @@
                         "destinationPortRange": "80",
                         "destinationApplicationSecurityGroups": [
                             {
-                                "id": "[parameters('asgName')]"
+                                "id": "[variables('appAsgId')]"
                             }
                         ] 
                     }
