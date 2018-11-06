@@ -18,7 +18,7 @@
     },
     "resources": [
       {
-        "comments": "Network Security Group",
+        
         "name": "[parameters('module-NSG-1').nsgName]",
         "copy" : {
             "name": "nsgRules",
