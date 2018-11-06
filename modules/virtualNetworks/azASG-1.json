@@ -30,15 +30,15 @@
         "name": "[parameters('asgNames')[copyIndex()]]",
         "copy" : {
           "name": "asgGroups",
-          "count": "[length(parameters('asgNames'))]",
-          "type": "Microsoft.Network/applicationSecurityGroups",
-          "apiVersion": "2018-08-01",
-          "dependsOn": [],
-          "tags": "[parameters('customTages')]",
-          "location": "[variables('location')]",
-          "properties": {}  
+          "count": "[length(parameters('asgNames'))]"
+        },
+        "type": "Microsoft.Network/applicationSecurityGroups",
+        "apiVersion": "2018-08-01",
+        "dependsOn": [],
+        "tags": "[parameters('customTages')]",
+        "location": "[variables('location')]",
+        "properties": {}  
         }
-      }
       
     ],
     "outputs": {
