@@ -5,6 +5,11 @@
       "asgName": {
         "type": "string"
       },
+      "asgNames": { 
+        "type": "array", 
+        "defaultValue": [  
+        ] 
+    },
       "customTages": {
         "type": "object"
       }
@@ -22,6 +27,19 @@
         "tags": "[parameters('customTages')]",
         "location": "[variables('location')]",
         "properties": {}  
+      },
+      {
+        "name": "[parameters('asgNames')[copyIndex()]]",
+        "copy" : {
+          "name": "asgGroups",
+          "count": "[length(parameters('asgNames'))]",
+          "type": "Microsoft.Network/applicationSecurityGroups",
+          "apiVersion": "2018-08-01",
+          "dependsOn": [],
+          "tags": "[parameters('customTages')]",
+          "location": "[variables('location')]",
+          "properties": {}  
+        }
       }
       
     ],
