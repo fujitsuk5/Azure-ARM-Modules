@@ -2,8 +2,8 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "asgName": {
-        "type": "string"
+      "asgNames": { 
+        "type": "array" 
       },
       "customTages": {
         "type": "object"
@@ -15,14 +15,19 @@
     },
     "resources": [
       {
-        "name": "[parameters('asgName')]",
+        "name": "[parameters('asgNames')[copyIndex()]]",
+        "copy" : {
+          "name": "asgGroups",
+          "count": "[length(parameters('asgNames'))]"
+        },
         "type": "Microsoft.Network/applicationSecurityGroups",
         "apiVersion": "2018-08-01",
         "dependsOn": [],
         "tags": "[parameters('customTages')]",
         "location": "[variables('location')]",
         "properties": {}  
-      }
+        }
+      
     ],
     "outputs": {
     }
