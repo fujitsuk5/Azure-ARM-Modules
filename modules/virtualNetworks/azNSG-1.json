@@ -15,10 +15,10 @@
     "resources": [
       {
         "comments": "Network Security Group",
-        "name": "parameters('rdpNSGRules')]",
+        "name": "parameters('module-NSG-1').nsgName]",
         "copy" : {
             "name": "nsgRules",
-            "count": "[length(parameters('module-NSG-1').nsgName)]"
+            "count": "[length(parameters('module-NSG-1').rules)]"
           },
         "type": "Microsoft.Network/networkSecurityGroups",
         "apiVersion": "2018-08-01",
