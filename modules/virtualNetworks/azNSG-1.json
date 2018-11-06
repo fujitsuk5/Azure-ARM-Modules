@@ -15,7 +15,7 @@
     "resources": [
       {
         "comments": "Network Security Group",
-        "name": "parameters('module-NSG-1').nsgName]",
+        "name": "[parameters('module-NSG-1').nsgName]",
         "copy" : {
             "name": "nsgRules",
             "count": "[length(parameters('module-NSG-1').rules)]"
@@ -27,7 +27,7 @@
         "properties": {
             "securityRules": [
                 {
-                    "name": "parameters('module-NSG-1').rules.[copyIndex()].name",
+                    "name": "[parameters('module-NSG-1').rules[copyIndex()].name]",
                     "properties": {
                         "description": "parameters('module-NSG-1').rules.[copyIndex()].description",
                         "sourceAddressPrefix": "*",
