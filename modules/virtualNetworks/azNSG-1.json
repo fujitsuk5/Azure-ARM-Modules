@@ -2,10 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "rdpNsgName": {
-        "type": "string"
-      },
-      "rdpNsgRules": {
+      "module-NSG-1": {
         "type": "array"
       },
       "customTages": {
@@ -13,17 +10,15 @@
       }
     },
     "variables": {
-      "location": "[resourceGroup().location]",
-      "rdpAsgName": "rdpServersAsg",
-      "rdpAsgId": "[resourceId('Microsoft.Network/applicationSecurityGroups',variables('rdpAsgName'))]"
+      "location": "[resourceGroup().location]"
     },
     "resources": [
       {
         "comments": "Network Security Group",
-        "name": "[parameters('rdpNsgName')]",
+        "name": "parameters('rdpNSGRules')]",
         "copy" : {
             "name": "nsgRules",
-            "count": "[length(parameters('rdpNSGRules').rules)]"
+            "count": "[length(parameters('module-NSG-1').nsgName)]"
           },
         "type": "Microsoft.Network/networkSecurityGroups",
         "apiVersion": "2018-08-01",
@@ -32,9 +27,9 @@
         "properties": {
             "securityRules": [
                 {
-                    "name": "parameters('rdpNSGRules').rules.[copyIndex()].name",
+                    "name": "parameters('module-NSG-1').rules.[copyIndex()].name",
                     "properties": {
-                        "description": "parameters('rdpNSGRules').rules.[copyIndex()].description",
+                        "description": "parameters('module-NSG-1').rules.[copyIndex()].description",
                         "sourceAddressPrefix": "*",
                         "sourcePortRange": "*",
                         "direction": "Inbound",
