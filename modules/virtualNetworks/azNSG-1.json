@@ -14,7 +14,7 @@
     },
     "variables": {
       "location": "[resourceGroup().location]",
-      "appAsgId": "[resourceId('Microsoft.Network/applicationSecurityGroups',variables('asgName'))]"
+      "appAsgId": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('asgName'))]"
     },
     "resources": [
       {
