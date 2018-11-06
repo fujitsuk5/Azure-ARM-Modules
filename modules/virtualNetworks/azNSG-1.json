@@ -38,7 +38,7 @@
                         "sourcePortRange": "parameters('module-NSG-1').rules.[copyIndex()].sourcePortRange",
                         "direction": "parameters('module-NSG-1').rules.[copyIndex()].direction",
                         "access": "parameters('module-NSG-1').rules.[copyIndex()].access",
-                        "priority": "parameters('module-NSG-1').rules.[copyIndex()].priority",
+                        "priority": 100,
                         "protocol": "parameters('module-NSG-1').rules.[copyIndex()].protocol",
                         "destinationPortRange": "parameters('module-NSG-1').rules.[copyIndex()].destinationPortRange",
                         "destinationApplicationSecurityGroups": [
