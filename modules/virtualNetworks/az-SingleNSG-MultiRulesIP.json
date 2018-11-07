@@ -38,6 +38,7 @@
       {
         "name": "[parameters('moduleSingleNSGMultiRules').nsgName]",
         "type": "Microsoft.Network/networkSecurityGroups",
+        "comments": "Module to create a Network Security Group with multiple IP associated rules",
         "apiVersion": "2018-08-01",
         "tags": "[parameters('customTages')]",
         "location": "[variables('location')]",
