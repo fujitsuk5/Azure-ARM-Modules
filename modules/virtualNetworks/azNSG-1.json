@@ -14,7 +14,32 @@
     },
     "variables": {
       "location": "[resourceGroup().location]",
-      "appAsgId": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('asgName'))]"
+      "appAsgId": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('asgName'))]",
+      "copy" : [
+        {
+            "name": "securityRules",
+            "count": "[length(parameters('module-NSG-1').rules)]",
+            "input" : {   
+                "name": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].name]",
+                "properties": {
+                    "description": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].description]",
+                    "sourceAddressPrefix": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].sourceAddressPrefix]",
+                    "sourcePortRange": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].sourcePortRange]",
+                    "direction": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].direction]",
+                    "access": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].access]",
+                    "priority": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].priority]",
+                    "protocol": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].protocol]",
+                    "destinationPortRange": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].destinationPortRange]",
+                    "destinationApplicationSecurityGroups": [
+                        {
+                            "id": "[variables('appAsgId')]"
+                        }
+                    ]    
+                            
+                }
+            }
+        }
+      ]
     },
     "resources": [
       {
@@ -24,31 +49,7 @@
         "tags": "[parameters('customTages')]",
         "location": "[variables('location')]",
         "properties": {
-            "copy" : [
-                {
-                    "name": "securityRules",
-                    "count": "[length(parameters('module-NSG-1').rules)]",
-                    "input" : {   
-                        "name": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].name]",
-                        "properties": {
-                            "description": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].description]",
-                            "sourceAddressPrefix": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].sourceAddressPrefix]",
-                            "sourcePortRange": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].sourcePortRange]",
-                            "direction": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].direction]",
-                            "access": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].access]",
-                            "priority": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].priority]",
-                            "protocol": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].protocol]",
-                            "destinationPortRange": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].destinationPortRange]",
-                            "destinationApplicationSecurityGroups": [
-                                {
-                                    "id": "[variables('appAsgId')]"
-                                }
-                            ]    
-                                    
-                        }
-                    }
-                }
-            ]
+            "securityRules": "[variables('securityRules')]"    
         }
       }
     ],
