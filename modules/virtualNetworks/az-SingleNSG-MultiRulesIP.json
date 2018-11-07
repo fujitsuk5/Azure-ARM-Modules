@@ -5,16 +5,13 @@
       "moduleSingleNSGMultiRules": {
         "type": "object"
       },
-      "asgName": {
-        "type": "string"
-      },
+      
       "customTages": {
         "type": "object"
       }
     },
     "variables": {
       "location": "[resourceGroup().location]",
-      "appAsgId": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('asgName'))]",
       "copy" : [
         {
             "name": "securityRules",
@@ -29,12 +26,9 @@
                     "access": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].access]",
                     "priority": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].priority]",
                     "protocol": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].protocol]",
-                    "destinationPortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationPortRange]",
-                    "destinationAddressPrefix": [
-                        {
-                             "id":  "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationAddressPrefix)]"     
-                        }
-                    ]
+                    "destinationAddressPrefix": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationAddressPrefix]",
+                    "destinationPortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationPortRange]"
+                    
                 }
             }
         }

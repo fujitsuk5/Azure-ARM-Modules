@@ -5,16 +5,12 @@
       "moduleSingleNSGMultiRules": {
         "type": "object"
       },
-      "asgName": {
-        "type": "string"
-      },
       "customTages": {
         "type": "object"
       }
     },
     "variables": {
       "location": "[resourceGroup().location]",
-      "appAsgId": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('asgName'))]",
       "copy" : [
         {
             "name": "securityRules",
