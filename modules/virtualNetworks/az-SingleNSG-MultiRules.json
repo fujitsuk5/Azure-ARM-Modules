@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "module-NSG-1": {
+      "moduleSingleNSGMultiRules": {
         "type": "object"
       },
       "asgName": {
@@ -18,18 +18,18 @@
       "copy" : [
         {
             "name": "securityRules",
-            "count": "[length(parameters('module-NSG-1').rules)]",
+            "count": "[length(parameters('moduleSingleNSGMultiRules').rules)]",
             "input" : {   
-                "name": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].name]",
+                "name": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].name]",
                 "properties": {
-                    "description": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].description]",
-                    "sourceAddressPrefix": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].sourceAddressPrefix]",
-                    "sourcePortRange": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].sourcePortRange]",
-                    "direction": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].direction]",
-                    "access": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].access]",
-                    "priority": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].priority]",
-                    "protocol": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].protocol]",
-                    "destinationPortRange": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].destinationPortRange]",
+                    "description": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].description]",
+                    "sourceAddressPrefix": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].sourceAddressPrefix]",
+                    "sourcePortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].sourcePortRange]",
+                    "direction": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].direction]",
+                    "access": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].access]",
+                    "priority": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].priority]",
+                    "protocol": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].protocol]",
+                    "destinationPortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationPortRange]",
                     "destinationApplicationSecurityGroups": [
                         {
                             "id": "[variables('appAsgId')]"
@@ -43,7 +43,7 @@
     },
     "resources": [
       {
-        "name": "[parameters('module-NSG-1').nsgName]",
+        "name": "[parameters('moduleSingleNSGMultiRules').nsgName]",
         "type": "Microsoft.Network/networkSecurityGroups",
         "apiVersion": "2018-08-01",
         "tags": "[parameters('customTages')]",
