@@ -28,18 +28,17 @@
                 {
                     "name": "securityRules",
                     "count": "[length(parameters('module-NSG-1').rules)]",
-                    "input" : {
-                            
-                        "name": "[parameters('module-NSG-1').rules[copyIndex()].name]",
+                    "input" : {   
+                        "name": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].name]",
                         "properties": {
-                             "description": "[parameters('module-NSG-1').rules[copyIndex()].description]",
-                            "sourceAddressPrefix": "[parameters('module-NSG-1').rules[copyIndex()].sourceAddressPrefix]",
-                            "sourcePortRange": "[parameters('module-NSG-1').rules[copyIndex()].sourcePortRange]",
-                            "direction": "[parameters('module-NSG-1').rules[copyIndex()].direction]",
-                            "access": "[parameters('module-NSG-1').rules[copyIndex()].access]",
-                            "priority": "[parameters('module-NSG-1').rules[copyIndex()].priority]",
-                            "protocol": "[parameters('module-NSG-1').rules[copyIndex()].protocol]",
-                            "destinationPortRange": "[parameters('module-NSG-1').rules[copyIndex()].destinationPortRange]",
+                            "description": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].description]",
+                            "sourceAddressPrefix": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].sourceAddressPrefix]",
+                            "sourcePortRange": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].sourcePortRange]",
+                            "direction": "[parameters('module-NSG-1').rules[copyIndex'securityRules'()].direction]",
+                            "access": "[parameters('module-NSG-1').rules[copyIndex'securityRules'()].access]",
+                            "priority": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].priority]",
+                            "protocol": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].protocol]",
+                            "destinationPortRange": "[parameters('module-NSG-1').rules[copyIndex('securityRules')].destinationPortRange]",
                             "destinationApplicationSecurityGroups": [
                                 {
                                     "id": "[variables('appAsgId')]"
