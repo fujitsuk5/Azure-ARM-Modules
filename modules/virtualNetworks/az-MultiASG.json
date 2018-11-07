@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "asgNames": { 
+      "moduleMultiASG": { 
         "type": "array" 
       },
       "customTages": {
@@ -15,10 +15,10 @@
     },
     "resources": [
       {
-        "name": "[parameters('asgNames')[copyIndex()]]",
+        "name": "[parameters('moduleMultiASG')[copyIndex()]]",
         "copy" : {
           "name": "asgGroups",
-          "count": "[length(parameters('asgNames'))]"
+          "count": "[length(parameters('moduleMultiASG'))]"
         },
         "type": "Microsoft.Network/applicationSecurityGroups",
         "apiVersion": "2018-08-01",
