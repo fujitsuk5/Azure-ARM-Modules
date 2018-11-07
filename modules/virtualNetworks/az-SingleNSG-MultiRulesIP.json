@@ -1,0 +1,59 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleSingleNSGMultiRules": {
+        "type": "object"
+      },
+      "asgName": {
+        "type": "string"
+      },
+      "customTages": {
+        "type": "object"
+      }
+    },
+    "variables": {
+      "location": "[resourceGroup().location]",
+      "appAsgId": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('asgName'))]",
+      "copy" : [
+        {
+            "name": "securityRules",
+            "count": "[length(parameters('moduleSingleNSGMultiRules').rules)]",
+            "input" : {   
+                "name": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].name]",
+                "properties": {
+                    "description": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].description]",
+                    "sourceAddressPrefix": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].sourceAddressPrefix]",
+                    "sourcePortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].sourcePortRange]",
+                    "direction": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].direction]",
+                    "access": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].access]",
+                    "priority": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].priority]",
+                    "protocol": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].protocol]",
+                    "destinationPortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationPortRange]",
+                    "destinationAddressPrefix": [
+                        {
+                             "id":  "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationAddressPrefix)]"     
+                        }
+                    ]
+                }
+            }
+        }
+      ]
+    },
+    "resources": [
+      {
+        "name": "[parameters('moduleSingleNSGMultiRules').nsgName]",
+        "type": "Microsoft.Network/networkSecurityGroups",
+        "apiVersion": "2018-08-01",
+        "tags": "[parameters('customTages')]",
+        "location": "[variables('location')]",
+        "properties": {
+            "securityRules": "[variables('securityRules')]"    
+        }
+      }
+    ],
+    "outputs": {
+    }
+}
+
+  
