@@ -30,7 +30,11 @@
                     "priority": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].priority]",
                     "protocol": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].protocol]",
                     "destinationPortRange": "[parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationPortRange]",
-                    "destinationApplicationSecurityGroups": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationApplicationSecurityGroups)]"     
+                    "destinationApplicationSecurityGroups": [
+                        {
+                             "id":  "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleSingleNSGMultiRules').rules[copyIndex('securityRules')].destinationApplicationSecurityGroups)]"     
+                        }
+                    ]
                 }
             }
         }
