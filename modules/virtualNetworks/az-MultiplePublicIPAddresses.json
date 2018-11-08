@@ -19,7 +19,7 @@
                 "count": "[length(parameters('moduleMultiplePublicIPAddresses').pips)]"
             },
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[concat(toLower(parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].pipName),'=pip')]",
+            "name": "[concat(toLower(parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].pipName),'-pip')]",
             "apiVersion": "2017-06-01",
             "dependsOn": [],
             "tags": "[parameters('customTages')]",
