@@ -30,7 +30,20 @@
             },
             "properties": {
                 "accessTier": "[parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].accesstier]"
-            }
+            },
+            "resources": [
+                {
+                    "name": "[concat('default/', parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].containerName)]",
+                    "type": "blobServices/containers",
+                    "apiVersion": "2018-03-01-preview",
+                    "condition": "[equals(parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].blob, 'Yes')]",
+                    "dependsOn": [
+                    ],
+                    "properties": {
+                        "publicAccess": "[parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].publicAccess]"
+                    } 
+                }
+            ]    
         }
         
       ], 
