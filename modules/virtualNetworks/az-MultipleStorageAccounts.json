@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "moduleStorageAccounts": {
+      "moduleMultipleStorageAccounts": {
         "type": "object"
       },
       "customTages": {
@@ -16,20 +16,20 @@
         {
             "copy" : {
                 "name": "storageAccounts",
-                "count": "[length(parameters('moduleStorageAccounts').accounts)]"
+                "count": "[length(parameters('moduleMultipleStorageAccounts').accounts)]"
             },
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[parameters('moduleStorageAccounts').accounts[copyIndex('storageAccounts')].saName]",
+            "name": "[parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].saName]",
             "apiVersion": "2018-02-01",
             "dependsOn": [],
             "tags": "[parameters('customTages')]",
             "location": "[variables('location')]",
-            "kind": "[parameters('moduleStorageAccounts').accounts[copyIndex('storageAccounts')].kind]",
+            "kind": "[parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].kind]",
             "sku": {
-                "name": "[parameters('moduleStorageAccounts').accounts[copyIndex('storageAccounts')].storageAccountType]"
+                "name": "[parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].storageAccountType]"
             },
             "properties": {
-                "accessTier": "[parameters('moduleStorageAccounts').accounts[copyIndex('storageAccounts')].accesstier]"
+                "accessTier": "[parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].accesstier]"
             }
         }
         
