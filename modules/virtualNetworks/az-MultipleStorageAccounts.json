@@ -38,6 +38,7 @@
                     "apiVersion": "2018-03-01-preview",
                     "condition": "[equals(parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].blob, 'Yes')]",
                     "dependsOn": [
+                        "storageAccounts"
                     ],
                     "properties": {
                         "publicAccess": "[parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].publicAccess]"
