@@ -19,7 +19,7 @@
                 "count": "[length(parameters('moduleMultipleStorageAccounts').accounts)]"
             },
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "(take(concat[toLower(parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].saName),concat(uniquestring(resourceGroup().id)),24)]",
+            "name": "[take(concat(toLower(parameters('moduleMultipleStorageAccounts').accounts[copyIndex('storageAccounts')].saName),uniquestring(resourceGroup().id)),24)]",
             "apiVersion": "2018-02-01",
             "dependsOn": [],
             "tags": "[parameters('customTages')]",
