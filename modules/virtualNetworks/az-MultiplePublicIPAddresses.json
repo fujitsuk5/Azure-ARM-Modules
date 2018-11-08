@@ -27,7 +27,7 @@
             "properties": {
                 "publicIPAllocationMethod": "[parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].publicIPAllocationMethod]",
                 "dnsSettings": {
-                  "domainNameLabel": "[parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].accesstier]"
+                  "domainNameLabel": "[parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].domainNameLabelprefix]"
                 }
             }
            
