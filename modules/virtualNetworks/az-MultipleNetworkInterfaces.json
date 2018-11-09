@@ -52,7 +52,7 @@
             "tags": "[parameters('customTages')]",
             "location": "[variables('location')]",
             "properties": {
-                "networkInterfaces": "[variables('networkInterfaces')]"    
+                "ipConfigurations": "[variables('networkInterfaces')]"    
             }
           
         }
