@@ -16,22 +16,22 @@
             "name": "networkInterfaces",
             "count": "[length(parameters('moduleMultipleNetworkInterfaces').nics)]",
             "input" : {   
-                "name": "[concat(parameters('moduleMultipleNetworkInterfaces').rules[copyIndex('networkInterfaces')].nicName,'-nic')]",
+                "name": "[concat(parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName,'-nic')]",
                 "properties": {
                     "ipConfigurations": [
                         {
                             "name": "ipconfigdmz",
                             "properties": {
-                                "privateIPAllocationMethod": "[parameters('moduleMultipleNetworkInterfaces').pips[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
+                                "privateIPAllocationMethod": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
                                 "publicIPAddress": {
-                                    "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleMultipleNetworkInterfaces').pips[copyIndex('networkInterfaces')].pipName)]"
+                                    "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName)]"
                                 },
                                 "subnet": {
-                                    "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('moduleMultipleNetworkInterfaces').pips[copyIndex('networkInterfaces')].subnetName)]"
+                                    "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName)]"
                                 },
                                 "applicationSecurityGroups": [
                                     {
-                                        "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleMultipleNetworkInterfaces').pips[copyIndex('networkInterfaces')].publicIPAllocationMethod)]"
+                                        "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].publicIPAllocationMethod)]"
                                     }
                                 ]
                             }
