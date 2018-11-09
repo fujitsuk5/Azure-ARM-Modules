@@ -45,7 +45,6 @@
     },
     "resources": [
         {
-            "name": "[variables('networkInterfaces').name]",
             "type": "Microsoft.Network/networkInterfaces",
             "comments": "Module to create one or more Network Interfaces",
             "apiVersion": "2017-09-01",
