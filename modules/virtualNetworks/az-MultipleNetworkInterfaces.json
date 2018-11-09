@@ -31,7 +31,7 @@
                                 },
                                 "applicationSecurityGroups": [
                                     {
-                                        "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].publicIPAllocationMethod)]"
+                                        "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod)]"
                                     }
                                 ]
                             }
