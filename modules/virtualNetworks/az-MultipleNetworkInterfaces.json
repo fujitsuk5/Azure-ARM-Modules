@@ -16,7 +16,7 @@
             "name": "networkInterfaces",
             "count": "[length(parameters('moduleMultipleNetworkInterfaces').nics)]",
             "input" : {   
-                
+                "nicName": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName]",
                 "name": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].ipConfigName]",
                 "properties": {
                     "privateIPAllocationMethod": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
@@ -39,7 +39,7 @@
     },
     "resources": [
         {
-            "name": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName]",
+            "name": "[variables('networkInterfaces').nicName]",
             "type": "Microsoft.Network/networkInterfaces",
             "comments": "Module to create one or more Network Interfaces",
             "apiVersion": "2017-09-01",
