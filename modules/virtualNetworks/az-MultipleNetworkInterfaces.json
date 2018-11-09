@@ -17,7 +17,7 @@
             "count": "[length(parameters('moduleMultipleNetworkInterfaces').nics)]",
             "input" : {   
                 
-                "name": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName]"
+                "name": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaceNames')].nicName]"
             }
         }
       ],
