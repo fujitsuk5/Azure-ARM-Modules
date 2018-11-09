@@ -16,11 +16,10 @@
             "name": "networkInterfaces",
             "count": "[length(parameters('moduleMultipleNetworkInterfaces').nics)]",
             "input" : {   
-                "name": "[concat(parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName,'-nic')]",
                 "properties": {
                     "ipConfigurations": [
                         {
-                            "name": "ipconfigdmz",
+                            "name": "[concat(parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName,'-nic')]",
                             "properties": {
                                 "privateIPAllocationMethod": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
                                 "publicIPAddress": {
