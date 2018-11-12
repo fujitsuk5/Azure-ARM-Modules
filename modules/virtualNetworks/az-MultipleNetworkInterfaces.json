@@ -21,6 +21,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "comments": "Module to create one or more Network Interfaces",
             "apiVersion": "2017-09-01",
+            "name": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName]",
             "tags": "[parameters('customTages')]",
             "location": "[variables('location')]",
             "properties": {
