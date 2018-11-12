@@ -18,7 +18,7 @@
                     "name": "virtualMachines",
                     "count": "[length(parameters('moduleMultipleVirtualMachines').vms)]"
             },
-            "type": "Microsoft.Network/virtualMachines",
+            "type": "Microsoft.Compute/virtualMachines",
             "comments": "Module to create one or more Virtual Machines",
             "apiVersion": "2017-03-30",
             "name": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].vmName]",
