@@ -10,52 +10,40 @@
       }
     },
     "variables": {
-      "location": "[resourceGroup().location]",
-      "copy" : [
-        {
-            "name": "networkInterfaces2",
-            "count": "[length(parameters('moduleMultipleNetworkInterfaces').nics)]",
-            "input" : {   
-                "nicName": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces2')].nicName]"
-                }
-            
-        },
-        {
-            "name": "networkInterfaces",
-            "count": "[length(parameters('moduleMultipleNetworkInterfaces').nics)]",
-            "input" : {   
-                "name": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].ipConfigName]",
-                "properties": {
-                    "privateIPAllocationMethod": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
-                    "publicIPAddress": {
-                        "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName)]"
-                    },
-                    "subnet": {
-                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName)]"
-                    },
-                    "applicationSecurityGroups": [
-                        {
-                            "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName)]"
-                        }
-                    ]
-                }
-            }
-        }
-
-      ]
+      "location": "[resourceGroup().location]"
     },
     "resources": [
         {
-            "name": "[variables('networkInterfaces2')]",
+            "copy" : {
+                    "name": "networkInterfaces",
+                    "count": "[length(parameters('moduleMultipleNetworkInterfaces').nics)]"
+            },
             "type": "Microsoft.Network/networkInterfaces",
             "comments": "Module to create one or more Network Interfaces",
             "apiVersion": "2017-09-01",
             "tags": "[parameters('customTages')]",
             "location": "[variables('location')]",
             "properties": {
-                "ipConfigurations": "[variables('networkInterfaces')]"    
+                "ipConfigurations": [   
+                    { 
+                        "name": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].ipConfigName]",
+                        "properties": {
+                            "privateIPAllocationMethod": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName)]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName)]"
+                            },
+                            "applicationSecurityGroups": [
+                                {
+                                    "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName)]"
+                                }
+                            ]
+                        }
+                    }
+                ]
             }
-          
         }
       ], 
     "outputs": {
