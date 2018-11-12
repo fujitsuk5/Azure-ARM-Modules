@@ -30,7 +30,7 @@
                 },
                 "osProfile": {
                     "computerName": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].vmName]",
-                    "adminUsername": "parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].adminUsername]",
+                    "adminUsername": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].adminUsername]",
                     "adminPassword": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].adminPassword]"
                 },
                 "storageProfile": {
@@ -42,7 +42,7 @@
                     },
                     "osDisk": {
                         "name": "[concat(parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].vmName,'-osdisk')]",
-                        "createOption": "parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].osCreateOption"
+                        "createOption": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].osCreateOption]"
                     }
                 },
                 "networkProfile": {
