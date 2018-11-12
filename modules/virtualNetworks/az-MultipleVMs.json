@@ -25,7 +25,6 @@
             "tags": "[parameters('customTages')]",
             "location": "[variables('location')]",
             "properties": {
-                "properties": {
                 "hardwareProfile": {
                     "vmSize": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].vmSize]"
                 },
@@ -61,7 +60,6 @@
                 }
             }
         }
-      }
     ], 
     "outputs": {
     }
