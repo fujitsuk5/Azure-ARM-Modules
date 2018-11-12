@@ -38,7 +38,7 @@
                         "publisher": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].publisher]",
                         "offer": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].offer]",
                         "sku": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].sku]",
-                        "version": "latest"
+                        "version": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].latest]"
                     },
                     "osDisk": {
                         "name": "[concat(parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].vmName,'-osdisk')]",
