@@ -43,7 +43,7 @@
                     "osDisk": {
                         "name": "[concat(parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].vmName,'-osdisk')]",
                         "createOption": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].osCreateOption]"
-                    }
+                    } 
                 },
                 "networkProfile": {
                     "networkInterfaces": [
