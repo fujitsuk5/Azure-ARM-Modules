@@ -24,7 +24,6 @@
                             "id": "[resourceId('Microsoft.Network/networkSecurityGroups',parameters('moduleSingleVNetMultiSubnets').subnets[copyIndex('subnets')].nsgName)]"
                         }    
                     }
-                    
                 }
             } 
         ]
