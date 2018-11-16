@@ -44,17 +44,9 @@
                     "addressPrefixes": [
                         "[parameters('moduleSingleVNetMultiSubnets').vnetCIDR]"
                     ]
-                }
+                },
+                "subnets": "[variables('subnets')]" 
             }
-        },
-        {
-            "apiVersion": "2017-06-01",
-            "type": "Microsoft.Network/virtualNetworks/subnets",
-            "dependsOn": [
-            ],
-            "location": "[variables('location')]", 
-            "subnets": "[variables('subnets')]" 
-            
         } 
     ],
     "outputs": {
