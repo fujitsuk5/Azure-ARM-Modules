@@ -19,7 +19,7 @@
                 "input" : { 
                     "name": "[parameters('moduleSingleVNetMultiSubnets').subnets[copyIndex('subnets')].name]",
                     "properties": {
-                        "addressPrefix": "[parameters('moduleSingleVNetMultiSubnets').subnets[copyIndex('subnets')].subnets]",
+                        "addressPrefix": "[parameters('moduleSingleVNetMultiSubnets').subnets[copyIndex('subnets')].addressPrefix]",
                         "networkSecurityGroup": {
                             "id": "[resourceId('Microsoft.Network/networkSecurityGroups',parameters('moduleSingleVNetMultiSubnets').subnets[copyIndex('subnets')].nsgName)]"
                         }    
