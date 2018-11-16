@@ -16,8 +16,6 @@
             {
                 "name": "subnets",
                 "count": "[length(parameters('moduleSingleVNetMultiSubnets').subnets)]",
-                "mode": "serial",
-                "batchSize": 1,
                 "input" : { 
                     "name": "[parameters('moduleSingleVNetMultiSubnets').subnets[copyIndex('subnets')].name]",
                     "properties": {
