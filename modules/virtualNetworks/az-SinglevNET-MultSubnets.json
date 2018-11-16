@@ -1,0 +1,64 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleSingleVNetMultiSubnets": {
+        "type": "object"
+      },
+      
+      "customTages": {
+        "type": "object"
+      }
+    },
+    "variables": {
+        "location": "[resourceGroup().location]",
+        "copy" : [
+            {
+                "name": "subnets",
+                "count": "[length(parameters('moduleSingleVNetMultiSubnets').subnets)]",
+                "mode": "serial",
+                "batchSize": 1,
+                "input" : { 
+                    "name": "[parameters('moduleSingleVNetMultiSubnets').subnets[copyIndex('subnets')].name]",
+                    "properties": {
+                        "addressPrefix": "[parameters('moduleSingleVNetMultiSubnets').subnets[copyIndex('subnets')].subnets]",
+                        "networkSecurityGroup": {
+                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups',parameters('moduleSingleVNetMultiSubnets').subnets[copyIndex('subnets')].nsgName)]"
+                        }    
+                    }
+                    
+                }
+            } 
+        ]
+    },
+    "resources": [
+        {
+            "name": "[parameters('moduleSingleVNetMultiSubnets').vnetName]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "comments": "Module to create a vNET with multiple subnets",
+            "apiVersion": "2018-08-01",
+            "tags": "[parameters('customTages')]",
+            "location": "[variables('location')]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('moduleSingleVNetMultiSubnets').vnetCIDR]"
+                    ]
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-06-01",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "dependsOn": [
+            ],
+            "location": "[variables('location')]", 
+            "subnets": "[variables('subnets')]" 
+            
+        } 
+    ],
+    "outputs": {
+    }
+}
+
+  
