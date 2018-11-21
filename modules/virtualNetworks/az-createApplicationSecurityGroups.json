@@ -26,7 +26,7 @@
         "dependsOn": [
         ],
         "tags": "[parameters('customTages')]",
-        "location": "[if(equals(variables('locationSpecified?'), 'true'), parameters('moduleCreateApplicationSecurityGroups').location, variables('defaultLocation'))]",
+        "location": "[if(equals(parameters('moduleCreateApplicationSecurityGroups').location, json('null')), variables('defaultLocation'), parameters('moduleCreateApplicationSecurityGroups').location)]",
         "properties": {}  
       }
     ],
