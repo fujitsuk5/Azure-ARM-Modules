@@ -17,16 +17,16 @@
     },
     "resources": [
       {
-        "name": "[parameters('createApplicationSecurityGroups')[copyIndex()]]",
+        "name": "[parameters('moduleCreateApplicationSecurityGroups')[copyIndex()]]",
         "copy" : {
           "name": "asgGroups",
-          "count": "[length(parameters('createApplicationSecurityGroups'))]"
+          "count": "[length(parameters('moduleCreateApplicationSecurityGroups'))]"
         },
         "type": "Microsoft.Network/applicationSecurityGroups",
         "apiVersion": "2018-08-01",
         "comments": "module to create one or more application security groups from a passed in array of data",
         "dependsOn": [],
-        "tags": "[parameters('tages')]",
+        "tags": "[parameters('customTages')]",
         "location": "[parameters('location')]",
         "properties": {}  
       }
