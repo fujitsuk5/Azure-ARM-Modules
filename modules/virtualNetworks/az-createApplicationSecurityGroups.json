@@ -10,7 +10,7 @@
       }
     },
     "variables": {   
-      "locationSpecified?" : "[empty(parameters('moduleCreateApplicationSecurityGroups').location)]" 
+      "locationSpecified?" : "[not(empty(parameters('moduleCreateApplicationSecurityGroups').location))]" 
     },
     "resources": [
       {
