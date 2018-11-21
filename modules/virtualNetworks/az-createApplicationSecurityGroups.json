@@ -15,11 +15,11 @@
     "resources": [
       {
         "condition": "[variables('locationSpecified?')]",
-        "name": "[parameters('moduleCreateApplicationSecurityGroups').groupNames.Name[copyIndex()]]",
         "copy" : {
           "name": "asgGroups",
           "count": "[length(parameters('moduleCreateApplicationSecurityGroups').groupNames)]"
         },
+        "name": "[parameters('moduleCreateApplicationSecurityGroups').groupNames[copyIndex()].name]",
         "type": "Microsoft.Network/applicationSecurityGroups",
         "apiVersion": "2018-08-01",
         "comments": "module to create one or more application security groups from a passed in array of data",
@@ -31,11 +31,11 @@
       },
       {
         "condition": "[not(variables('locationSpecified?'))]",
-        "name": "[parameters('moduleCreateApplicationSecurityGroups').groupNames.Name[copyIndex()]]",
         "copy" : {
           "name": "asgGroups",
           "count": "[length(parameters('moduleCreateApplicationSecurityGroups').groupNames)]"
         },
+        "name": "[parameters('moduleCreateApplicationSecurityGroups').groupNames[copyIndex()].name]",
         "type": "Microsoft.Network/applicationSecurityGroups",
         "apiVersion": "2018-08-01",
         "comments": "module to create one or more application security groups from a passed in array of data",
