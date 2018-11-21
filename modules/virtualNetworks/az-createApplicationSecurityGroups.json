@@ -7,27 +7,42 @@
       },
       "customTages": {
         "type": "object"
-      },
-      "location": {
-        "type" : "string",
-        "defaultValue": "[resourceGroup().location]"
       }
     },
-    "variables": {     
+    "variables": {   
+      "locationSpecified?" : "[empty(parameters('moduleCreateApplicationSecurityGroups').location)]" 
     },
     "resources": [
       {
-        "name": "[parameters('moduleCreateApplicationSecurityGroups')[copyIndex()]]",
+        "condition": "[variables('locationSpecified?')]",
+        "name": "[parameters('moduleCreateApplicationSecurityGroups').groupNames.Name[copyIndex()]]",
         "copy" : {
           "name": "asgGroups",
-          "count": "[length(parameters('moduleCreateApplicationSecurityGroups'))]"
+          "count": "[length(parameters('moduleCreateApplicationSecurityGroups').groupNames)]"
         },
         "type": "Microsoft.Network/applicationSecurityGroups",
         "apiVersion": "2018-08-01",
         "comments": "module to create one or more application security groups from a passed in array of data",
-        "dependsOn": [],
+        "dependsOn": [
+        ],
         "tags": "[parameters('customTages')]",
-        "location": "[parameters('location')]",
+        "location": "[parameters('moduleCreateApplicationSecurityGroups').location]",
+        "properties": {}  
+      },
+      {
+        "condition": "[not(variables('locationSpecified?'))]",
+        "name": "[parameters('moduleCreateApplicationSecurityGroups').groupNames.Name[copyIndex()]]",
+        "copy" : {
+          "name": "asgGroups",
+          "count": "[length(parameters('moduleCreateApplicationSecurityGroups').groupNames)]"
+        },
+        "type": "Microsoft.Network/applicationSecurityGroups",
+        "apiVersion": "2018-08-01",
+        "comments": "module to create one or more application security groups from a passed in array of data",
+        "dependsOn": [
+        ],
+        "tags": "[parameters('customTages')]",
+        "location": "[resourceGroup().location]",
         "properties": {}  
       }
     ],
