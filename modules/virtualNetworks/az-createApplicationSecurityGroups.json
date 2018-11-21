@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.1",
     "parameters": {
       "moduleCreateApplicationSecurityGroups": { 
-        "type": "array" 
+        "type": "object" 
       },
       "customTages": {
         "type": "object"
