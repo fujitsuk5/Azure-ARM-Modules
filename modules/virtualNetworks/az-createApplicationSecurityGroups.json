@@ -1,6 +1,7 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
+    "comments": "module to create one or more application security groups from a passed in array of data",
     "parameters": {
       "moduleMultiASG": { 
         "type": "array" 
@@ -10,8 +11,7 @@
       }
     },
     "variables": {
-      "location": "[resourceGroup().location]" 
-        
+      "location": "[resourceGroup().location]"     
     },
     "resources": [
       {
@@ -26,10 +26,8 @@
         "tags": "[parameters('customTages')]",
         "location": "[variables('location')]",
         "properties": {}  
-        }
-      
+      }
     ],
     "outputs": {
     }
 }
-  
