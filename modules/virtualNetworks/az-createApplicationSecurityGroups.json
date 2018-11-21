@@ -10,7 +10,8 @@
       }
     },
     "variables": {   
-      "locationSpecified?" : "[not(empty(parameters('moduleCreateApplicationSecurityGroups').location))]" 
+      "locationSpecified?" : "[not(empty(parameters('moduleCreateApplicationSecurityGroups').location))]",
+      "defaultLocation": "[resourceGroup().location]"
     },
     "resources": [
       {
@@ -26,7 +27,7 @@
         "dependsOn": [
         ],
         "tags": "[parameters('customTages')]",
-        "location": "[if(equals(variables('locationSpecified?'), 'Yes'), resourceGroup().location, parameters('moduleCreateApplicationSecurityGroups').location)]",
+        "location": "[if(equals(variables('locationSpecified?'), 'true'), parameters('moduleCreateApplicationSecurityGroups').location, variables('defaultLocation'))]",
         "properties": {}  
       }
     ],
