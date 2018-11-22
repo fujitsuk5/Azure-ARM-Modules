@@ -30,7 +30,7 @@
                 "copy" : 
                   {
                     "name": "securityRules",
-                    "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('securityRules')].rules)]"
+                    "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules)]"
                   },
                   "name": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].name]",
                   "properties": {
