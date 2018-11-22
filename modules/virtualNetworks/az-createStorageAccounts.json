@@ -42,9 +42,6 @@
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
             "apiVersion": "2018-07-01",
             "condition": "[equals(parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].blob, 'Yes')]",
-            "dependsOn": [
-                "storageAccounts"
-            ],
             "properties": {
                 "publicAccess": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].publicAccess]"
                 
