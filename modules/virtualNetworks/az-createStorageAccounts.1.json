@@ -31,26 +31,7 @@
             "properties": {
                 "accessTier": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].accesstier]"
             }
-        },
-        {
-            "copy" : {
-                "name": "blobcontainer",
-                "count": "[length(parameters('moduleCreateStorageAccounts').accounts)]"
-            },
-                    
-            "name": "[concat( toLower(parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].saName),'/default/', parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].containerName)]",
-            "type": "Microsoft.Storage/storageAccounts/blobServices",
-            "apiVersion": "2018-07-01",
-            "condition": "[equals(parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].blob, 'Yes')]",
-            "dependsOn": [
-                "storageAccounts"
-            ],
-            "properties": {
-                "publicAccess": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].publicAccess]"
-                
-            }
-                
-        }      
+        }
             
       ], 
     "outputs": {
