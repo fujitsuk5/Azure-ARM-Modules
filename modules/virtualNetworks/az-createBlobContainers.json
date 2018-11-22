@@ -19,7 +19,7 @@
                 "count": "[length(parameters('moduleCreateBlobContainers').accounts)]"
             },
                     
-            "name": "[concat(parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].saName,'/default/', parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].containerName)]",
+            "name": "[concat('test','/default/', parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].containerName)]",
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
             "apiVersion": "2018-07-01",
             "condition": "[equals(parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].blob, 'Yes')]",
