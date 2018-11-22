@@ -29,22 +29,22 @@
               {
                 "copy" : 
                   {
-                    "name": "securityRules",
+                    "name": "nsgRules",
                     "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules)]"
                   },
-                  "name": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].name]",
+                  "name": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('nsgRules')].name]",
                   "properties": {
-                    "description": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].description]",
-                    "sourceAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].sourceAddressPrefix]",
-                    "sourcePortRange": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].sourcePortRange]",
-                    "direction": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].direction]",
-                    "access": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].access]",
-                    "priority": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].priority]",
-                    "protocol": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].protocol]",
-                    "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].destinationPortRange]",
+                    "description": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('nsgRules')].description]",
+                    "sourceAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('nsgRules')].sourceAddressPrefix]",
+                    "sourcePortRange": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('nsgRules')].sourcePortRange]",
+                    "direction": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('nsgRules')].direction]",
+                    "access": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('nsgRules')].access]",
+                    "priority": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('nsgRules')].priority]",
+                    "protocol": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('nsgRules')].protocol]",
+                    "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('nsgRules')].destinationPortRange]",
                     "destinationApplicationSecurityGroups": [
                       {
-                        "id":  "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].destinationApplicationSecurityGroups)]"     
+                        "id":  "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('nsgRules')].destinationApplicationSecurityGroups)]"     
                       }
                     ]
                   }
