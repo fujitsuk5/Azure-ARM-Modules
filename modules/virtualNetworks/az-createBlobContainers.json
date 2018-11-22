@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "moduleCreateStorageAccounts": {
+      "moduleCreateBlobContainers": {
         "type": "object"
       },
       "customTages": {
@@ -16,19 +16,19 @@
         {
             "copy" : {
                 "name": "blobcontainer",
-                "count": "[length(parameters('moduleCreateStorageAccounts').accounts)]"
+                "count": "[length(parameters('moduleCreateBlobContainers').accounts)]"
             },
                     
-            "name": "[concat( toLower(parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].saName),'/default/', parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].containerName)]",
+            "name": "[concat( toLower(parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].saName),'/default/', parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].containerName)]",
             "type": "Microsoft.Storage/storageAccounts/blobServices",
             "apiVersion": "2018-07-01",
-            "condition": "[equals(parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].blob, 'Yes')]",
+            "condition": "[equals(parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].blob, 'Yes')]",
             "dependsOn": [
-                "[toLower(parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].saName)]",
+                "[toLower(parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].saName)]",
                 "storageAccounts"
             ],
             "properties": {
-                "publicAccess": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('blobcontainer')].publicAccess]"
+                "publicAccess": "[parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].publicAccess]"
                 
             }
                 
