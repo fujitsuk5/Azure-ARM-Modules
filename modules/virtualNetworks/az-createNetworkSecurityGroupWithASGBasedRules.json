@@ -43,7 +43,7 @@
         "comments": "Module to create a Network Security Group with multiple ASG associated rules",
         "apiVersion": "2018-08-01",
         "tags": "[parameters('customTages')]",
-        "location": "[if(equals(parameters('moduleCreateApplicationSecurityGroups').location, json('null')), variables('defaultLocation'), parameters('moduleCreateApplicationSecurityGroups').location)]",
+        "location": "[if(equals(parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').location)]",
         "properties": {
             "securityRules": "[variables('securityRules')]"    
         }
