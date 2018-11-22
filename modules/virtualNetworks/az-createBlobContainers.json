@@ -24,7 +24,6 @@
             "apiVersion": "2018-07-01",
             "condition": "[equals(parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].blob, 'Yes')]",
             "dependsOn": [
-                "[toLower(parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].saName)]"
             ],
             "properties": {
                 "publicAccess": "[parameters('moduleCreateBlobContainers').accounts[copyIndex('blobcontainer')].publicAccess]"
