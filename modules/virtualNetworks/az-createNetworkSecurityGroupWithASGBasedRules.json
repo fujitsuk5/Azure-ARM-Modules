@@ -24,38 +24,34 @@
         "apiVersion": "2018-08-01",
         "tags": "[parameters('customTages')]",
         "location": "[if(equals(parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').location)]",
-        "properties": {
-  
-              
+        "properties": {    
           "copy" : [
-              {
-                "name": "securityRules",
-                "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules)]",
-                "input": {
-                  "name": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].name]",
-                  "properties": {
-                    "description": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].description]",
-                    "sourceAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].sourceAddressPrefix]",
-                    "sourcePortRange": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].sourcePortRange]",
-                    "direction": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].direction]",
-                    "access": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].access]",
-                    "priority": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].priority]",
-                    "protocol": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].protocol]",
-                    "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].destinationPortRange]",
-                    "destinationApplicationSecurityGroups": [
-                      {
-                        "id":  "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].destinationApplicationSecurityGroups)]"     
-                      }
-                    ]
-                  }
+            {
+              "name": "securityRules",
+              "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules)]",
+              "input": {
+                "name": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].name]",
+                "properties": {
+                  "description": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].description]",
+                  "sourceAddressPrefix": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].sourceAddressPrefix]",
+                  "sourcePortRange": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].sourcePortRange]",
+                  "direction": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].direction]",
+                  "access": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].access]",
+                  "priority": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].priority]",
+                  "protocol": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].protocol]",
+                  "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].destinationPortRange]",
+                  "destinationApplicationSecurityGroups": [
+                    {
+                      "id":  "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].destinationApplicationSecurityGroups)]"     
+                    }
+                  ]
                 }
               }
+            }
           ]
         }               
-      }
-      
+      }   
     ],
     "outputs": {
     }
 }
-
