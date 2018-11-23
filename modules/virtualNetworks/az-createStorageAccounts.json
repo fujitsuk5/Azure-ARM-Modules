@@ -30,7 +30,24 @@
             },
             "properties": {
                 "accessTier": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].accesstier]"
-            }
+            },
+            "resources" : [
+                {
+                        
+                "name": "[concat(tolower(parameters('moduleCreateStorageAccounts').accounts[copyIndex('containers')].saName),'/default/test')]",
+                "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+                "apiVersion": "2018-03-01-preview",
+                "condition": "[equals(parameters('moduleCreateStorageAccounts').accounts[copyIndex('containers')].blob, 'Yes')]",
+                "dependsOn": [
+                    "storageAccounts"
+                ],
+                "properties": {
+                    "publicAccess": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('containers')].publicAccess]"
+                    
+                }
+                    
+                }
+            ]   
         },
         
         {
