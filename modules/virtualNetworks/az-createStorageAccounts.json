@@ -7,6 +7,9 @@
       },
       "customTages": {
         "type": "object"
+      },
+      "storageAccountSuffix": {
+        "type": "string"
       }
     },
     "variables": {

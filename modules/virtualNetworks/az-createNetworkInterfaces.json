@@ -7,6 +7,9 @@
       },
       "customTages": {
         "type": "object"
+      },
+      "nicSuffix": {
+        "type": "string"
       }
     },
     "variables": {

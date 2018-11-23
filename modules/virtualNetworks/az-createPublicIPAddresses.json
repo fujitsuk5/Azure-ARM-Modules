@@ -7,6 +7,9 @@
       },
       "customTages": {
         "type": "object"
+      },
+      "publicIPSuffix": {
+        "type": "string"
       }
     },
     "variables": {

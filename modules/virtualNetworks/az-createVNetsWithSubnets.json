@@ -8,6 +8,12 @@
       
       "customTages": {
         "type": "object"
+      },
+      "vnetSuffix": {
+        "type": "string"
+      },
+      "subnetSuffix": {
+        "type": "string"
       }
     },
     "variables": {
