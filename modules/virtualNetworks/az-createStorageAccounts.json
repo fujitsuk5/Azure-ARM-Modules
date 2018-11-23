@@ -16,7 +16,7 @@
         {
             "copy" : {
                 "name": "storageAccounts",
-                "count": "[length(parameters('moduleCreateStorageAccounts').accounts)]"
+                "count": "[length(parameters('moduleCreateStorageAccounts').accounts)]",
             
                 "type": "Microsoft.Storage/storageAccounts",
                 "name": "[toLower(parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].saName)]",
