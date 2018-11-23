@@ -30,24 +30,8 @@
                 },
                 "properties": {
                     "accessTier": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].accesstier]"
-                },
-                "resources" : [
-                    {
-                        
-                        "name": "[concat('default', [copyIndex('storageAccounts')],'/')]",
-                        "type": "blobServices/containers",
-                        "apiVersion": "2018-03-01-preview",
-                        "condition": "[equals(parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].blob, 'Yes')]",
-                        "dependsOn": [
-                            "storageAccounts"
-                        ],
-                        "properties": {
-                            "publicAccess": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].publicAccess]"
-                    
-                        }
-                    
-                    }
-                ]   
+                }
+                   
             }
         }
         
