@@ -44,7 +44,7 @@
                 "apiVersion": "2018-03-01-preview",
                 "condition": "[equals(parameters('moduleCreateStorageAccounts').accounts[copyIndex('containers')].blob, 'Yes')]",
                 "dependsOn": [
-                    "toLower(parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].saName)"
+                    "storageAccounts"
                 ],
                 "properties": {
                     "publicAccess": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('containers')].publicAccess]"
