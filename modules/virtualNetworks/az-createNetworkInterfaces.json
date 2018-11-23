@@ -10,7 +10,7 @@
       }
     },
     "variables": {
-      "location": "[resourceGroup().location]"
+        "defaultLocation": "[resourceGroup().location]"
     },
     "resources": [
         {
@@ -20,10 +20,10 @@
             },
             "type": "Microsoft.Network/networkInterfaces",
             "comments": "Module to create one or more Network Interfaces",
-            "apiVersion": "2017-09-01",
+            "apiVersion": "2018-08-01",
             "name": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName]",
             "tags": "[parameters('customTages')]",
-            "location": "[variables('location')]",
+            "location": "[if(equals(parameters('moduleMultipleNetworkInterfaces').location, json('null')), variables('defaultLocation'), parameters('moduleMultipleNetworkInterfaces').location)]",
             "properties": {
                 "ipConfigurations": [   
                     { 
