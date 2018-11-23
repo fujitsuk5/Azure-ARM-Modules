@@ -8,8 +8,8 @@
       "customTages": {
         "type": "object"
       },
-      "nsgSuffix": {
-        "type": "string"
+      "suffixes" : {
+        "type": "object"
       }
     },
     "variables": {

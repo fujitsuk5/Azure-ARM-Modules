@@ -12,8 +12,8 @@
       "vnetSuffix": {
         "type": "string"
       },
-      "subnetSuffix": {
-        "type": "string"
+      "suffixes" : {
+        "type": "object"
       }
     },
     "variables": {

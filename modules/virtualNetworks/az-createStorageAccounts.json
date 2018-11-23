@@ -8,8 +8,8 @@
       "customTages": {
         "type": "object"
       },
-      "storageAccountSuffix": {
-        "type": "string"
+      "suffixes" : {
+        "type": "object"
       }
     },
     "variables": {

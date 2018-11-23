@@ -8,8 +8,8 @@
       "customTages": {
         "type": "object"
       },
-      "nicSuffix": {
-        "type": "string"
+      "suffixes" : {
+        "type": "object"
       }
     },
     "variables": {
