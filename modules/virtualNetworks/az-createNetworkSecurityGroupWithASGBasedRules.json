@@ -45,7 +45,7 @@
                   "destinationPortRange": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].destinationPortRange]",
                   "destinationApplicationSecurityGroups": [
                     {
-                      "id":  "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].destinationApplicationSecurityGroups)]"     
+                      "id":  "[resourceId('Microsoft.Network/applicationSecurityGroups',concat(parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].rules[copyIndex('securityRules')].destinationApplicationSecurityGroups),parameters('suffixes').asgSuffix)]"     
                     }
                   ]
                 }
