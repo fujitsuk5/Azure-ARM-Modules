@@ -21,7 +21,7 @@
           "name": "asgNSGGroups",
           "count": "[length(parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames)]"
         },
-        "name": "[parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].nsgName]",
+        "name": "[concat(parameters('moduleCreateNetworkSecurityGroupWithASGBasedRules').nsgNames[copyIndex('asgNSGGroups')].nsgName,parameters('suffixes').nsgSuffix)]",
         "type": "Microsoft.Network/networkSecurityGroups",
         "comments": "Module to create a Network Security Group with multiple ASG associated rules",
         "apiVersion": "2018-08-01",

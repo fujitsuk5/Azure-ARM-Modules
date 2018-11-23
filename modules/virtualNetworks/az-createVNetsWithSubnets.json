@@ -22,7 +22,7 @@
                 "name": "vNets",
                 "count": "[length(parameters('moduleCreateVNetsAndSubnets').vNets)]"
             },
-            "name": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].vnetName]",
+            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].vnetName,parameters('suffixes').vnetSuffix)]",
             "type": "Microsoft.Network/virtualNetworks",
             "comments": "Module to create a vNET with multiple subnets",
             "apiVersion": "2018-08-01",
@@ -39,7 +39,7 @@
                         "name": "subnets",
                         "count": "[length(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets)]",
                         "input" : { 
-                            "name": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name]",
+                            "name": "[concat(parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].name,parameters('suffixes').subnetSuffix)]",
                             "properties": {
                                 "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').vNets[copyIndex('vNets')].subnets[copyIndex('subnets')].addressPrefix]",
                                 "networkSecurityGroup": {

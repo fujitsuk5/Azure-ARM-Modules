@@ -22,7 +22,7 @@
                 "count": "[length(parameters('moduleCreateStorageAccounts').accounts)]"
             },
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[toLower(parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].saName)]",
+            "name": "[concat(toLower(parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].saName),parameters('suffixes').storageAccountSuffix)]",
             "apiVersion": "2018-07-01",
             "dependsOn": [],
             "tags": "[parameters('customTages')]",

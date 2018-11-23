@@ -24,7 +24,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "comments": "Module to create one or more Network Interfaces",
             "apiVersion": "2018-08-01",
-            "name": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName]",
+            "name": "[concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName,parameters('suffixes').nicSuffix)]",
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateNetworkInterfaces').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkInterfaces').location)]",
             "properties": {
@@ -34,14 +34,14 @@
                         "properties": {
                             "privateIPAllocationMethod": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName)]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName),parameters('suffixes').publlicIPSuffix)]"
                             },
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName)]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('suffixes').vnetSuffix,parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName,parameters('suffixes').subnetSuffix))]"
                             },
                             "applicationSecurityGroups": [
                                 {
-                                    "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName)]"
+                                    "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName),parameters('suffixes').asgSuffix)]"
                                 }
                             ]
                         }

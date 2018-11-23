@@ -22,7 +22,7 @@
           "count": "[length(parameters('moduleCreatePublicIPAddresses').pips)]"
         },
         "type": "Microsoft.Network/publicIPAddresses",
-        "name": "[concat(toLower(parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].pipName),'-pip')]",
+        "name": "[concat(toLower(parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].pipName),parameters('suffixes').publicIPSuffix)]",
         "apiVersion": "2018-06-01",
         "dependsOn": [
         ],
