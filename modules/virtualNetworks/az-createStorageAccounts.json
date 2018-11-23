@@ -32,6 +32,7 @@
                 "accessTier": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].accesstier]"
             }
         },
+        
             {
                 "copy" : {
                     "name": "containers",
@@ -43,7 +44,7 @@
                 "apiVersion": "2018-03-01-preview",
                 "condition": "[equals(parameters('moduleCreateStorageAccounts').accounts[copyIndex('containers')].blob, 'Yes')]",
                 "dependsOn": [
-                    "storageAccounts"
+                    "toLower(parameters('moduleCreateStorageAccounts').accounts[copyIndex('containers')].saName)"
                 ],
                 "properties": {
                     "publicAccess": "[parameters('moduleCreateStorageAccounts').accounts[copyIndex('containers')].publicAccess]"
