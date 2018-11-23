@@ -10,31 +10,29 @@
       }
     },
     "variables": {
-      "location": "[resourceGroup().location]"
+      "defaultLocation": "[resourceGroup().location]"
     },
     "resources": [
-        {
-            "copy" : {
-                "name": "publicIPAddresses",
-                "count": "[length(parameters('moduleMultiplePublicIPAddresses').pips)]"
-            },
-            "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[concat(toLower(parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].pipName),'-pip')]",
-            "apiVersion": "2018-06-01",
-            "dependsOn": [],
-            "tags": "[parameters('customTages')]",
-            "location": "[variables('location')]",
-            "properties": {
-                "publicIPAllocationMethod": "[parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].publicIPAllocationMethod]",
-                "dnsSettings": {
-                  "domainNameLabel": "[parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].domainNameLabelprefix]"
-                }
-            }
-           
-        }
-      ], 
+      {
+        "copy" : {
+          "name": "publicIPAddresses",
+          "count": "[length(parameters('moduleMultiplePublicIPAddresses').pips)]"
+        },
+        "type": "Microsoft.Network/publicIPAddresses",
+        "name": "[concat(toLower(parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].pipName),'-pip')]",
+        "apiVersion": "2018-06-01",
+        "dependsOn": [
+        ],
+        "tags": "[parameters('customTages')]",
+        "location": "[if(equals(parameters('moduleMultiplePublicIPAddresses').location, json('null')), variables('defaultLocation'), parameters('moduleMultiplePublicIPAddresses').location)]",
+        "properties": {
+          "publicIPAllocationMethod": "[parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].publicIPAllocationMethod]",
+          "dnsSettings": {
+            "domainNameLabel": "[parameters('moduleMultiplePublicIPAddresses').pips[copyIndex('publicIPAddresses')].domainNameLabelprefix]"
+          }
+        }    
+      }
+    ], 
     "outputs": {
     }
 }
-
-  
