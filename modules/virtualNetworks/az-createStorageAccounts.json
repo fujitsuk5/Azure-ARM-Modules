@@ -34,8 +34,8 @@
             "resources" : [
                 {
                         
-                "name": "[concat('default/test')]",
-                "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+                "name": "[concat('default/')]",
+                "type": "blobServices/containers",
                 "apiVersion": "2018-03-01-preview",
                 "condition": "[equals(parameters('moduleCreateStorageAccounts').accounts[copyIndex('storageAccounts')].blob, 'Yes')]",
                 "dependsOn": [
