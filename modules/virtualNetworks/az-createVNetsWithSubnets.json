@@ -9,9 +9,6 @@
       "customTages": {
         "type": "object"
       },
-      "vnetSuffix": {
-        "type": "string"
-      },
       "suffixes" : {
         "type": "object"
       }
