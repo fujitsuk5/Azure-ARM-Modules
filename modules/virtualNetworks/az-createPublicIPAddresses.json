@@ -10,7 +10,7 @@
       },
       "suffixes" : {
         "type": "object"
-      }}
+      }
     },
     "variables": {
       "defaultLocation": "[resourceGroup().location]"
