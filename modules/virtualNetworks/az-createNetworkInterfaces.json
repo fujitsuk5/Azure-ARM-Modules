@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "moduleMultipleNetworkInterfaces": {
+      "moduleCreateNetworkInterfaces": {
         "type": "object"
       },
       "customTages": {
@@ -16,29 +16,29 @@
         {
             "copy" : {
                     "name": "networkInterfaces",
-                    "count": "[length(parameters('moduleMultipleNetworkInterfaces').nics)]"
+                    "count": "[length(parameters('moduleCreateNetworkInterfaces').nics)]"
             },
             "type": "Microsoft.Network/networkInterfaces",
             "comments": "Module to create one or more Network Interfaces",
             "apiVersion": "2018-08-01",
-            "name": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName]",
+            "name": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName]",
             "tags": "[parameters('customTages')]",
-            "location": "[if(equals(parameters('moduleMultipleNetworkInterfaces').location, json('null')), variables('defaultLocation'), parameters('moduleMultipleNetworkInterfaces').location)]",
+            "location": "[if(equals(parameters('moduleCreateNetworkInterfaces').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkInterfaces').location)]",
             "properties": {
                 "ipConfigurations": [   
                     { 
-                        "name": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].ipConfigName]",
+                        "name": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].ipConfigName]",
                         "properties": {
-                            "privateIPAllocationMethod": "[parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
+                            "privateIPAllocationMethod": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName)]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName)]"
                             },
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName)]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName)]"
                             },
                             "applicationSecurityGroups": [
                                 {
-                                    "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleMultipleNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName)]"
+                                    "id": "[resourceId('Microsoft.Network/applicationSecurityGroups',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName)]"
                                 }
                             ]
                         }
