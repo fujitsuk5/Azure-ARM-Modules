@@ -11,22 +11,7 @@
       }
     },
     "variables": {
-        "defaultLocation": "[resourceGroup().location]",
-        "copy" : [
-            {
-                "name": "subnets",
-                "count": "[length(parameters('moduleCreateVNetsAndSubnets').subnets)]",
-                "input" : { 
-                    "name": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('subnets')].name]",
-                    "properties": {
-                        "addressPrefix": "[parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('subnets')].addressPrefix]",
-                        "networkSecurityGroup": {
-                            "id": "[resourceId('Microsoft.Network/networkSecurityGroups',parameters('moduleCreateVNetsAndSubnets').subnets[copyIndex('subnets')].nsgName)]"
-                        }    
-                    }
-                }
-            } 
-        ]
+        "defaultLocation": "[resourceGroup().location]"
     },
     "resources": [
         {
