@@ -21,7 +21,7 @@
           "name": "asgGroups",
           "count": "[length(parameters('moduleCreateApplicationSecurityGroups').groupNames)]"
         },
-        "name": "[concat(parameters('moduleCreateApplicationSecurityGroups').groupNames[copyIndex()].name)]",
+        "name": "[concat(parameters('moduleCreateApplicationSecurityGroups').groupNames[copyIndex()].name,parameters('asgSuffix'))]",
         "type": "Microsoft.Network/applicationSecurityGroups",
         "apiVersion": "2018-08-01",
         "comments": "module to create one or more application security groups from a passed in array of data",
