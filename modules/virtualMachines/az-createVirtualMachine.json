@@ -2,60 +2,75 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "moduleMultipleVirtualMachines": {
+      "moduleCreateVirtualMachinesPerVNet": {
         "type": "object"
       },
       "customTages": {
         "type": "object"
+      },
+      "suffixes" : {
+        "type": "object"
       }
     },
     "variables": {
-      "location": "[resourceGroup().location]"
+      "defaultLocation": "[resourceGroup().location]"
     },
     "resources": [
         {
             "copy" : {
                     "name": "virtualMachines",
-                    "count": "[length(parameters('moduleMultipleVirtualMachines').vms)]"
+                    "count": "[length(parameters('moduleCreateVirtualMachinesPerVNet').vms)]"
             },
             "type": "Microsoft.Compute/virtualMachines",
             "comments": "Module to create one or more Virtual Machines",
             "apiVersion": "2017-03-30",
-            "name": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].vmName]",
+            "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').vmSuffix)]",
             "tags": "[parameters('customTages')]",
-            "location": "[variables('location')]",
+            "location": "[if(equals(parameters('moduleCreateVirtualMachinesPerVNet').location, json('null')), variables('defaultLocation'), parameters('moduleCreateVirtualMachinesPerVNet').location)]",
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].vmSize]"
+                    "vmSize": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmSize]"
                 },
                 "osProfile": {
-                    "computerName": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].vmName]",
-                    "adminUsername": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].adminUsername]",
-                    "adminPassword": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].adminPassword]"
+                    "computerName": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName]",
+                    "adminUsername": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].adminUsername]",
+                    "adminPassword": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].adminPassword]"
                 },
                 "storageProfile": {
                     "imageReference": {
-                        "publisher": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].publisher]",
-                        "offer": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].offer]",
-                        "sku": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].sku]",
-                        "version": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].version]"
+                        "publisher": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].publisher]",
+                        "offer": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].offer]",
+                        "sku": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].sku]",
+                        "version": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].version]"
                     },
                     "osDisk": {
-                        "name": "[concat(parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].vmName,'-osdisk')]",
-                        "createOption": "[parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].osCreateOption]"
-                    } 
+                        "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].vmName,parameters('suffixes').osDiskSuffix)]",
+                        "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].osCreateOption]"
+                    },
+                    "copy": [
+                        {
+                            "name": "dataDisks",
+                            "count": "[length(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks)]",
+                            "input": {
+                                "name": "[concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].name,parameters('suffixes').osDataDiskSuffix)]",
+                                "diskSizeGB": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].diskSizeGB]",
+                                "lun": "[copyIndex('dataDisks')]",
+                                "createOption": "[parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].otherDisks[copyIndex('dataDisks')].createOption]"
+                            }
+                        }    
+                    ]
                 },
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].nicName)]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].nicName)]"
                         }
                     ]
                 },
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
                         "enabled": "true",
-                        "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/',parameters('moduleMultipleVirtualMachines').vms[copyIndex('virtualMachines')].storageAccountName), '2016-01-01').primaryEndpoints.blob)]"
+                        "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/',parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].storageAccountName), '2016-01-01').primaryEndpoints.blob)]"
                     }
                 }
             }
