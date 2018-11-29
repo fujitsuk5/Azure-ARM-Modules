@@ -87,10 +87,10 @@
                         "name": "appGatewayHttpListener",
                         "properties": {
                             "FrontendIpConfiguration": {
-                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName),parameters('suffixes').applicationGatewaySuffix), '/frontendIPConfigurations/appGatewayFrontendIP')]"
                             },
                             "FrontendPort": {
-                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName), '/frontendPorts/appGatewayFrontendPort')]"
+                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName),parameters('suffixes').applicationGatewaySuffix), '/frontendPorts/appGatewayFrontendPort')]"
                             },
                             "Protocol": "Http",
                             "SslCertificate": null
@@ -118,4 +118,3 @@
         }
     ]
   }
-  
