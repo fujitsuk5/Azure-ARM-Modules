@@ -63,14 +63,14 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces',parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].nicName)]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].nicName,parameters('suffixes').nicSuffix))]"
                         }
                     ]
                 },
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
                         "enabled": "true",
-                        "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/',parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].storageAccountName), '2016-01-01').primaryEndpoints.blob)]"
+                        "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/',concat(parameters('moduleCreateVirtualMachinesPerVNet').vms[copyIndex('virtualMachines')].storageAccountName,parameters('suffixes').storageAccountSuffix)), '2016-01-01').primaryEndpoints.blob)]"
                     }
                 }
             }
