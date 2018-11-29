@@ -34,7 +34,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName)]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName),parameters('suffixes').publicIPSuffix)]"
                             },
                             "subnet": {
                                 "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName,parameters('suffixes').subnetSuffix))]"
