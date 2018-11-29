@@ -118,7 +118,7 @@
                     "enabled": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationWAFGateways')].wafEnabled]",          
                     "firewallMode": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationWAFGateways')].wafMode]",          
                     "ruleSetType": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationWAFGateways')].wafRuleSetType]",          
-                    "ruleSetVersion": "parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationWAFGateways')].wafRuleSetVersion]",          
+                    "ruleSetVersion": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationWAFGateways')].wafRuleSetVersion]",          
                     "disabledRuleGroups": []
                   }
             }
