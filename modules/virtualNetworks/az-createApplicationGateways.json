@@ -87,10 +87,10 @@
                         "name": "appGatewayHttpListener",
                         "properties": {
                             "FrontendIpConfiguration": {
-                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix), '/frontendIPConfigurations/appGatewayFrontendIP'))]"
+                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)), '/frontendIPConfigurations/appGatewayFrontendIP')]"
                             },
                             "FrontendPort": {
-                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix), '/frontendPorts/appGatewayFrontendPort'))]"
+                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)), '/frontendPorts/appGatewayFrontendPort')]"
                             },
                             "Protocol": "Http",
                             "SslCertificate": null
@@ -103,13 +103,13 @@
                         "properties": {
                             "RuleType": "Basic",
                             "httpListener": {
-                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix), '/httpListeners/appGatewayHttpListener'))]"
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)), '/httpListeners/appGatewayHttpListener')]"
                             },
                             "backendAddressPool": {
-                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix), '/backendAddressPools/appGatewayBackendPool'))]"
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)), '/backendAddressPools/appGatewayBackendPool')]"
                             },
                             "backendHttpSettings": {
-                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings'))]"
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
                             }
                         }
                     }
