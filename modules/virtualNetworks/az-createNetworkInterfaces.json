@@ -37,7 +37,7 @@
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName)]"
                             },
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('suffixes').vnetSuffix,parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName,parameters('suffixes').subnetSuffix))]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName,parameters('suffixes').subnetSuffix))]"
                             },
                             "applicationSecurityGroups": [
                                 {
