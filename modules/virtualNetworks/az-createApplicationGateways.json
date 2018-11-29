@@ -20,7 +20,7 @@
         {   
             "copy" : {
                 "name": "applicationGateways",
-                "count": "[length(parameters('moduleCreateApplicationGateway').vms)]"
+                "count": "[length(parameters('moduleCreateApplicationGateway').appGWs)]"
             },
             "type": "Microsoft.Network/applicationGateways",
             "comments": "Module to create one or more Application Gatways",
