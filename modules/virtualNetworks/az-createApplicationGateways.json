@@ -24,7 +24,7 @@
             },
             "type": "Microsoft.Network/applicationGateways",
             "comments": "Module to create one or more Application Gatways",
-            "apiVersion": "2017-06-01",
+            "apiVersion": "2018-08-01",
             "name": "[concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)]",
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateApplicationGateway').location, json('null')), variables('defaultLocation'), parameters('moduleCreateApplicationGateway').location)]",
@@ -33,7 +33,7 @@
             "properties": {
                 "sku": {
                     "name": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewaySize]",
-                    "tier": "Standard",
+                    "tier": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].tier]",
                     "capacity": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayInstanceCount]"
                 },
                 "gatewayIPConfigurations": [
