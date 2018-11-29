@@ -1,0 +1,120 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "moduleCreateApplicationGateway": {
+            "type": "object"
+        },
+        "customTages": {
+            "type": "object"
+        },
+        "suffixes" : {
+            "type": "object"
+        }
+    },
+    "variables": {
+        "defaultLocation": "[resourceGroup().location]"
+    },
+    
+    "resources": [
+        {   
+            "copy" : {
+                "name": "applicationGateways",
+                "count": "[length(parameters('moduleCreateApplicationGateway').vms)]"
+            },
+            "type": "Microsoft.Network/applicationGateways",
+            "comments": "Module to create one or more Application Gatways",
+            "apiVersion": "2017-06-01",
+            "name": "[concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateApplicationGateway').location, json('null')), variables('defaultLocation'), parameters('moduleCreateApplicationGateway').location)]",
+            "dependsOn": [
+            ],
+            "properties": {
+                "sku": {
+                    "name": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewaySize]",
+                    "tier": "Standard",
+                    "capacity": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayInstanceCount]"
+                },
+                "gatewayIPConfigurations": [
+                    {
+                        "name": "appGatewayIpConfig",
+                        "properties": {
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].subnetName,parameters('suffixes').subnetSuffix))]"
+                            }
+                        }
+                    }
+                ],
+                "frontendIPConfigurations": [
+                    {
+                        "name": "appGatewayFrontendIP",
+                        "properties": {
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].subnetName,parameters('suffixes').subnetSuffix))]"
+                            }
+                        }
+                    }
+                ],
+                "frontendPorts": [
+                    {
+                        "name": "appGatewayFrontendPort",
+                        "properties": {
+                            "Port": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].frontendPort]"
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "appGatewayBackendPool",
+                        "properties": {
+                           "BackendAddresses": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].backendIPAddresses]"
+                        }
+                    }
+                ],
+                "backendHttpSettingsCollection": [
+                    {
+                        "name": "appGatewayBackendHttpSettings",
+                        "properties": {
+                            "Port": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].backendPort]",
+                            "Protocol": "Http",
+                            "CookieBasedAffinity": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].cookieBasedAffinity]"
+                        }
+                    }
+                ],
+                "httpListeners": [
+                    {
+                        "name": "appGatewayHttpListener",
+                        "properties": {
+                            "FrontendIpConfiguration": {
+                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                            },
+                            "FrontendPort": {
+                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName), '/frontendPorts/appGatewayFrontendPort')]"
+                            },
+                            "Protocol": "Http",
+                            "SslCertificate": null
+                        }
+                    }
+                ],
+                "requestRoutingRules": [
+                    {
+                        "Name": "rule1",
+                        "properties": {
+                            "RuleType": "Basic",
+                            "httpListener": {
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName),parameters('suffixes').applicationGatewaySuffix), '/httpListeners/appGatewayHttpListener')]"
+                            },
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName),parameters('suffixes').applicationGatewaySuffix), '/backendAddressPools/appGatewayBackendPool')]"
+                            },
+                            "backendHttpSettings": {
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName),parameters('suffixes').applicationGatewaySuffix), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+  }
