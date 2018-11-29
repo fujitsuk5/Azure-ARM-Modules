@@ -1,0 +1,127 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "moduleCreateWAFApplicationGateway": {
+            "type": "object"
+        },
+        "customTages": {
+            "type": "object"
+        },
+        "suffixes" : {
+            "type": "object"
+        }
+    },
+    "variables": {
+        "defaultLocation": "[resourceGroup().location]"
+    },
+    
+    "resources": [
+        {   
+            "copy" : {
+                "name": "applicationWAFGateways",
+                "count": "[length(parameters('moduleCreateWAFApplicationGateway').appGWs)]"
+            },
+            "type": "Microsoft.Network/applicationGateways",
+            "comments": "Module to create one or more Application Gatways",
+            "apiVersion": "2018-08-01",
+            "name": "[concat(parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateWAFApplicationGateway').location, json('null')), variables('defaultLocation'), parameters('moduleCreateWAFApplicationGateway').location)]",
+            "dependsOn": [
+            ],
+            "properties": {
+                "sku": {
+                    "name": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewaySize]",
+                    "tier": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].tier]",
+                    "capacity": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayInstanceCount]"
+                },
+                "gatewayIPConfigurations": [
+                    {
+                        "name": "appGatewayIpConfig",
+                        "properties": {
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].subnetName,parameters('suffixes').subnetSuffix))]"
+                            }
+                        }
+                    }
+                ],
+                "frontendIPConfigurations": [
+                    {
+                        "name": "appGatewayFrontendIP",
+                        "properties": {
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].subnetName,parameters('suffixes').subnetSuffix))]"
+                            }
+                        }
+                    }
+                ],
+                "frontendPorts": [
+                    {
+                        "name": "appGatewayFrontendPort",
+                        "properties": {
+                            "Port": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].frontendPort]"
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "appGatewayBackendPool",
+                        "properties": {
+                           "BackendAddresses": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].backendIPAddresses]"
+                        }
+                    }
+                ],
+                "backendHttpSettingsCollection": [
+                    {
+                        "name": "appGatewayBackendHttpSettings",
+                        "properties": {
+                            "Port": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].backendPort]",
+                            "Protocol": "Http",
+                            "CookieBasedAffinity": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].cookieBasedAffinity]"
+                        }
+                    }
+                ],
+                "httpListeners": [
+                    {
+                        "name": "appGatewayHttpListener",
+                        "properties": {
+                            "FrontendIpConfiguration": {
+                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)), '/frontendIPConfigurations/appGatewayFrontendIP')]"
+                            },
+                            "FrontendPort": {
+                                "Id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)), '/frontendPorts/appGatewayFrontendPort')]"
+                            },
+                            "Protocol": "Http",
+                            "SslCertificate": null
+                        }
+                    }
+                ],
+                "requestRoutingRules": [
+                    {
+                        "Name": "rule1",
+                        "properties": {
+                            "RuleType": "Basic",
+                            "httpListener": {
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)), '/httpListeners/appGatewayHttpListener')]"
+                            },
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)), '/backendAddressPools/appGatewayBackendPool')]"
+                            },
+                            "backendHttpSettings": {
+                                "id": "[concat(resourceId('Microsoft.Network/applicationGateways', concat(parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)), '/backendHttpSettingsCollection/appGatewayBackendHttpSettings')]"
+                            }
+                        }
+                    }
+                ],
+                "webApplicationFirewallConfiguration": {
+                    "enabled": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].wafEnabled]",          
+                    "firewallMode": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].wafMode]",          
+                    "ruleSetType": "[parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].wafRuleSetType]",          
+                    "ruleSetVersion": "parameters('moduleCreateWAFApplicationGateway').appGWs[copyIndex('applicationGateways')].wafRuleSetVersion]",          
+                    "disabledRuleGroups": []
+                  }
+            }
+        }
+    ]
+  }
