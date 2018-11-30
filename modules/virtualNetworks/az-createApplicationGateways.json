@@ -114,13 +114,7 @@
                         }
                     }
                 ],
-                "webApplicationFirewallConfiguration": {
-                    "enabled": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].wafEnabled]",          
-                    "firewallMode": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].wafMode]",          
-                    "ruleSetType": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].wafRuleSetType]",          
-                    "ruleSetVersion": "parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].wafRuleSetVersion]",          
-                    "disabledRuleGroups": []
-                  }
+               
             }
         }
     ]
