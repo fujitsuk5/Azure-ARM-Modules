@@ -23,7 +23,6 @@
                 "count": "[length(parameters('moduleCreateApplicationGateway').appGWs)]"
             },
             "type": "Microsoft.Network/applicationGateways",
-            "condition": "[equals(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].waf, 'yes')]",
             "comments": "Module to create one or more Application Gatways",
             "apiVersion": "2018-08-01",
             "name": "[concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)]",
@@ -130,7 +129,6 @@
                 "count": "[length(parameters('moduleCreateApplicationGateway').appGWs)]"
             },
             "type": "Microsoft.Network/applicationGateways",
-            "condition": "[equals(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].waf, 'no')]",
             "comments": "Module to create one or more Application Gatways",
             "apiVersion": "2018-08-01",
             "name": "[concat(parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].applicationGatewayName,parameters('suffixes').applicationGatewaySuffix)]",
@@ -221,7 +219,14 @@
                             }
                         }
                     }
-                ]
+                ],
+                "webApplicationFirewallConfiguration": {
+                    "enabled": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].wafEnabled]",          
+                    "firewallMode": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].wafMode]",          
+                    "ruleSetType": "[parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].wafRuleSetType]",          
+                    "ruleSetVersion": "parameters('moduleCreateApplicationGateway').appGWs[copyIndex('applicationGateways')].wafRuleSetVersion]",          
+                    "disabledRuleGroups": []
+                  }
             }
         }
     ]
