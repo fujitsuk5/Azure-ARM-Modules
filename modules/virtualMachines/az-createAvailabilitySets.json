@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleCreateAvailabilitySets": {
+        "type": "object"
+      },
+      "customTages": {
+        "type": "object"
+      },
+      "suffixes" : {
+        "type": "object"
+      }
+    },
+    "variables": {
+      "defaultLocation": "[resourceGroup().location]"
+    },
+    "resources": [
+        {
+            "copy" : {
+                    "name": "availabilitySets",
+                    "count": "[length(parameters('moduleCreateAvailabilitySetss').availabilitySets)]"
+            },
+            "name": "[concat(parameters('moduleCreateAvailabilitySets').availabilitySets[copyIndex('availabilitySets')].availabilitySetName,parameters('suffixes').availabilitySetSuffix)]",
+            "apiVersion": "2018-06-01",
+            "location": "[if(equals(parameters('moduleCreateAvailabilitySets').location, json('null')), variables('defaultLocation'), parameters('moduleCreateAvailabilitySets').location)]",
+            "properties": {
+                "platformFaultDomainCount": "[parameters('moduleCreateAvailabilitySets').availabilitySets[copyIndex('availabilitySets')].platformFaultDomainCount]",
+                "platformUpdateDomainCount": "[parameters('moduleCreateAvailabilitySets').availabilitySets[copyIndex('availabilitySets')].platformUpdateDomainCount]"
+            },
+            "sku": {
+                "name": "[parameters('moduleCreateAvailabilitySets').availabilitySets[copyIndex('availabilitySets')].skuName]"
+            }
+        }
+    ], 
+    "outputs": {
+    }
+}
+
+
+  
