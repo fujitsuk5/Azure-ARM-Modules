@@ -19,7 +19,7 @@
         {
             "copy" : {
                     "name": "availabilitySets",
-                    "count": "[length(parameters('moduleCreateAvailabilitySetss').availabilitySets)]"
+                    "count": "[length(parameters('moduleCreateAvailabilitySets').availabilitySets)]"
             },
             "type": "Microsoft.Compute/availabilitySets",
             "name": "[concat(parameters('moduleCreateAvailabilitySets').availabilitySets[copyIndex('availabilitySets')].availabilitySetName,parameters('suffixes').availabilitySetSuffix)]",
