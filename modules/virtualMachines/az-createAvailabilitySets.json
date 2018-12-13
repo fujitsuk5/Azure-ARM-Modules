@@ -21,6 +21,7 @@
                     "name": "availabilitySets",
                     "count": "[length(parameters('moduleCreateAvailabilitySetss').availabilitySets)]"
             },
+            "type": "Microsoft.Compute/availabilitySets",
             "name": "[concat(parameters('moduleCreateAvailabilitySets').availabilitySets[copyIndex('availabilitySets')].availabilitySetName,parameters('suffixes').availabilitySetSuffix)]",
             "apiVersion": "2018-06-01",
             "location": "[if(equals(parameters('moduleCreateAvailabilitySets').location, json('null')), variables('defaultLocation'), parameters('moduleCreateAvailabilitySets').location)]",
