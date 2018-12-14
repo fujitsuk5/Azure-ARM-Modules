@@ -98,7 +98,7 @@
                                 "enableFloatingIP": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].enableFloatingIP",
                                 "idleTimeoutInMinutes": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].idleTimeoutInMinutes",
                                 "probe": {
-                                    "id": "[resourceId(concat('Microsoft.Network/loadBalancers',concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)),'/probes/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers').probename)]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probename)]"
                                 }
                             }
                         }
