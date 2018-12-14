@@ -68,7 +68,7 @@
                             "name": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].name",
                             "properties": {
                                 "frontendIPConfiguration": {
-                                    "id": "[resourceId(concat('Microsoft.Network/loadBalancers',concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers').frontendIPConfigurationsName)]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName)]"
                                 },
                                 "protocol": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].protocol",
                                 "frontendPort": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].frontendPort",
@@ -87,7 +87,7 @@
                             "name": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].name",
                             "properties": {
                                 "frontendIPConfiguration": {
-                                    "id": "[resourceId(concat('Microsoft.Network/loadBalancers',concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers').frontendIPConfigurationsName)]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName)]"
                                 },
                                 "backendAddressPool": {
                                     "id": "[resourceId(concat('Microsoft.Network/loadBalancers',concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)),'/backendAddressPools/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers').backendAddressPoolName)]"
