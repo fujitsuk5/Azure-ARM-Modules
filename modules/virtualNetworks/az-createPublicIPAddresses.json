@@ -31,7 +31,7 @@
         "properties": {
           "publicIPAllocationMethod": "[parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].publicIPAllocationMethod]",
           "dnsSettings": {
-            "domainNameLabel": "[parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].domainNameLabelprefix]"
+            "domainNameLabel": "[toLower(parameters('moduleCreatePublicIPAddresses').pips[copyIndex('publicIPAddresses')].domainNameLabelprefix)]"
           }
         }    
       }
