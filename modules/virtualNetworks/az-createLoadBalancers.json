@@ -24,7 +24,7 @@
             "type": "Microsoft.Network/loadBalancers",
             "comments": "Module to create one or more Load Balancers",
             "apiVersion": "2018-08-01",
-            "name": "[concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)]",
+            "name": "[toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix))]",
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateLoadBalancers').location, json('null')), variables('defaultLocation'), parameters('moduleCreateLoadBalancers').location)]",
             "properties": {
