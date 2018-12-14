@@ -93,10 +93,10 @@
                                     "id": "[concat(resourceId('Microsoft.Network/loadBalancers',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName),'/backendAddressPools/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].backendAddressPoolName)]"
                                 },
                                 "protocol": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].protocol",
-                                "frontendPort": "int(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].frontendPort)",
-                                "backendPort": "int(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].backendPort)",
-                                "enableFloatingIP": "bool(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].enableFloatingIP)",
-                                "idleTimeoutInMinutes": "int(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].idleTimeoutInMinutes)",
+                                "frontendPort": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].frontendPort",
+                                "backendPort": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].backendPort",
+                                "enableFloatingIP": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].enableFloatingIP",
+                                "idleTimeoutInMinutes": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].idleTimeoutInMinutes",
                                 "probe": {
                                     "id": "[concat(resourceId('Microsoft.Network/loadBalancers',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName),'/probes/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].probeName)]"
                                 }
