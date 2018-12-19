@@ -46,22 +46,6 @@
 
                 "copy": [
                     {
-                        "name": "probes",
-                        "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes)]",
-                        "input": {
-                            "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].probeName]",
-                            "properties": {
-                                "protocol": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].protocol",
-                                "port": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].port",
-                                "intervalInSeconds": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].internvalInSeconds",
-                                "numberOfProbes": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].numberOfProbes"
-                            }
-                        }
-                    }
-                ],
-
-                "copy": [
-                    {
                         "name": "inboundNatRules",
                         "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules)]",
                         "input": {
@@ -104,6 +88,21 @@
                         }
                         
                     }   
+                ],
+                "copy": [
+                    {
+                        "name": "probes",
+                        "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes)]",
+                        "input": {
+                            "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].probeName]",
+                            "properties": {
+                                "protocol": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].protocol]",
+                                "port": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].port]",
+                                "intervalInSeconds": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].internvalInSeconds]",
+                                "numberOfProbes": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].numberOfProbes]"
+                            }
+                        }
+                    }
                 ]
 
             }
