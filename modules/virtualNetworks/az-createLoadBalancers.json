@@ -98,7 +98,7 @@
                             "properties": {
                                 "protocol": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].protocol]",
                                 "port": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].port]",
-                                "intervalInSeconds": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].internvalInSeconds]",
+                                "intervalInSeconds": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].intervalInSeconds]",
                                 "numberOfProbes": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].numberOfProbes]"
                             }
                         }
