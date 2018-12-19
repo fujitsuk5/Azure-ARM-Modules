@@ -49,7 +49,7 @@
                         "name": "probes",
                         "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes)]",
                         "input": {
-                            "name": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].probename",
+                            "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].probeName]",
                             "properties": {
                                 "protocol": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].protocol",
                                 "port": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].port",
