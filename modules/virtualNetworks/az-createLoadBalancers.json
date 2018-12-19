@@ -26,7 +26,7 @@
             "apiVersion": "2018-08-01",
             "name": "[toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix))]",
             "tags": "[parameters('customTages')]",
-            "location": "[if(equals(parameters('moduleCreateLoadBalancers').location, json('null')), variables('defaultLocation'), parameters('moduleCreateLoadBalancers').location)]",
+            "location": "[if(equals(parameters('moduleCreateLoadBalancers').location, json('null')), variables('defaultLocation'),parameters('moduleCreateLoadBalancers').location)]",
             "properties": {
                 "frontendIPConfigurations": [
                     {
@@ -98,7 +98,7 @@
                                 "enableFloatingIP": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].enableFloatingIP]",
                                 "idleTimeoutInMinutes": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].idleTimeoutInMinutes]",
                                 "probe": {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName),'/probes/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].probeName)]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)),'/probes/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].probeName)]"
                                 }
                             }
                         }
