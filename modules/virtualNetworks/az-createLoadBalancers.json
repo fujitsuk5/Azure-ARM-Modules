@@ -33,7 +33,7 @@
                         "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName]",
                         "properties": {
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].nameOfExistingPublicIPAddress)]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].nameOfExistingPublicIPAddress,parameters('suffixes').publicIPSuffix))]"
                             }
                         }
                     }
@@ -87,10 +87,10 @@
                             "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].name]",
                             "properties": {
                                 "frontendIPConfiguration": {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName)]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName)]"
                                 },
                                 "backendAddressPool": {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName),'/backendAddressPools/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].backendAddressPoolName)]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)),'/backendAddressPools/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].backendAddressPoolName)]"
                                 },
                                 "protocol": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].protocol]",
                                 "frontendPort": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].frontendPort]",
