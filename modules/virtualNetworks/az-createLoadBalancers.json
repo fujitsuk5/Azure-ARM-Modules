@@ -40,7 +40,7 @@
                 ],
                 "backendAddressPools": [
                     {
-                        "name": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].backendAddressPoolName"
+                        "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].backendAddressPoolName]"
                     }
                 ],
 
