@@ -33,7 +33,7 @@
                         "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName]",
                         "properties": {
                             "publicIPAddress": {
-                                "id": "[concat(resourceId('Microsoft.Network/publicIPAddresses',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].nameOfExistingPublicIPAddress,parameters('suffixes').publicIPSuffix))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].nameOfExistingPublicIPAddress,parameters('suffixes').publicIPSuffix))]"
                             }
                         }
                     }
