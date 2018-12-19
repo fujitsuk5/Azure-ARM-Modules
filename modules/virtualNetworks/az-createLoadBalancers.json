@@ -65,7 +65,7 @@
                         "name": "inboundNatRules",
                         "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules)]",
                         "input": {
-                            "name": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].name",
+                            "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].name]",
                             "properties": {
                                 "frontendIPConfiguration": {
                                     "id": "[concat(resourceId('Microsoft.Network/loadBalancers',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName)]"
@@ -84,7 +84,7 @@
                         "name": "loadBalancingRules",
                         "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules)]",
                         "input": {
-                            "name": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].name",
+                            "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].name]",
                             "properties": {
                                 "frontendIPConfiguration": {
                                     "id": "[concat(resourceId('Microsoft.Network/loadBalancers',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName)]"
