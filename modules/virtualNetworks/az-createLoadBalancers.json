@@ -70,7 +70,6 @@
                                 }
                             ]
                         }
-                        
                     }   
                 ],
 
@@ -101,7 +100,7 @@
                             "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].inboundNatRulesname]",
                             "properties": {
                                 "frontendIPConfiguration": {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName)]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName))]"
                                 },
                                 "protocol": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].protocol",
                                 "frontendPort": "parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].frontendPort",
