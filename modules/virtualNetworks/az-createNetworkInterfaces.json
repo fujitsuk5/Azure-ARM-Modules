@@ -25,7 +25,6 @@
             "comments": "Module to create one or more Network Interfaces",
             "apiVersion": "2018-08-01",
             "name": "[concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName,parameters('suffixes').nicSuffix)]",
-            "condition" : "[not(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null')))]",
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateNetworkInterfaces').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkInterfaces').location)]",
             "properties": {
