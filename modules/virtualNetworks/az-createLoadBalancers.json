@@ -49,7 +49,7 @@
                         "name": "inboundNatRules",
                         "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules)]",
                         "input": {
-                            "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].name]",
+                            "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].inboundNatRulesname]",
                             "properties": {
                                 "frontendIPConfiguration": {
                                     "id": "[concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix)),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName)]"
