@@ -19,6 +19,50 @@
         {
             "copy" : {
                     "name": "networkInterfaces",
+                    "count": "[length(parameters('moduleCreateNetworkInterfaces').lbNics)]"
+            },
+            "type": "Microsoft.Network/networkInterfaces",
+            "comments": "Module to create one or more Network Interfaces",
+            "apiVersion": "2018-08-01",
+            "name": "[concat(parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].nicName,parameters('suffixes').nicSuffix)]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateNetworkInterfaces').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkInterfaces').location)]",
+            "properties": {
+                "ipConfigurations": [   
+                    { 
+                        "name": "[parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].ipConfigName]",
+                        "properties": {
+                            "privateIPAllocationMethod": "[parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].pipName,parameters('suffixes').publicIPSuffix))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].subnetName,parameters('suffixes').subnetSuffix))]"
+                            },
+                            "applicationSecurityGroups": [
+                                {
+                                    "id": "[if(equals(parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].aSGName,json('null')), '',resourceId('Microsoft.Network/applicationSecurityGroups',concat(parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].aSGName,parameters('suffixes').asgSuffix)))]"
+                                }
+                            ],
+                            "loadBalancerBackendAddressPools": [
+                                {
+                                    "id": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName,json('null')),parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].backendAddressPoolName,concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/backendAddressPools/',parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].backendAddressPoolName))]"
+                                    
+                                }
+                            ],
+                            "loadBalancerInboundNatRules": [
+                                {
+                                    "id": "[if(equals(parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].inboundNatRulesname,json('null')),parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].inboundNatRulesname,concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/inboundNatRules/',parameters('moduleCreateNetworkInterfaces').lbNics[copyIndex('networkInterfaces')].inboundNatRulesname))]"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "copy" : {
+                    "name": "networkInterfaces",
                     "count": "[length(parameters('moduleCreateNetworkInterfaces').nics)]"
             },
             "type": "Microsoft.Network/networkInterfaces",
@@ -38,29 +82,13 @@
                             },
                             "subnet": {
                                 "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName,parameters('suffixes').subnetSuffix))]"
-                            },
-                            "applicationSecurityGroups": [
-                                {
-                                    "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null')),'','id')]": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null')), '',resourceId('Microsoft.Network/applicationSecurityGroups',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,parameters('suffixes').asgSuffix)))]"
-                                }
-                            ],
-                            "loadBalancerBackendAddressPools": [
-                                {
-                                    "id": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName,json('null')),parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName,concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/backendAddressPools/',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName))]"
-                                    
-                                }
-                            ],
-                            "loadBalancerInboundNatRules": [
-                                {
-                                    "id": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].inboundNatRulesname,json('null')),parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].inboundNatRulesname,concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/inboundNatRules/',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].inboundNatRulesname))]"
-                                }
-                            ]
+                            }
                         }
                     }
                 ]
             }
         }
-      ], 
+    ],
     "outputs": {
     }
 }
