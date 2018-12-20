@@ -86,6 +86,7 @@
                 "copy": [
                     {
                         "name": "loadBalancingRules",
+                        "dependsOn": "probes",
                         "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules)]",
                         "input": {
                             
