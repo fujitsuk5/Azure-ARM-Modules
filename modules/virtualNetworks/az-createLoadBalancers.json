@@ -94,8 +94,8 @@
                         "name": "inboundNatRules",
                         "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules)]",
                         "input": {
-                            "inboundNatRules": [
-                                {
+                            
+                                
                                     "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].inboundNatRulesname]",
                                     "properties": {
                                         "frontendIPConfiguration": {
@@ -106,8 +106,8 @@
                                         "backendPort": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].backendPort]",
                                         "enableFloatingIP": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].inboundNatRules[copyIndex('inboundNatRules')].enableFloatingIP]"
                                     }
-                                }
-                            ]
+                                
+                            
                         }
                     }
                 ]
