@@ -19,7 +19,7 @@
         {
             "copy" : {
                     "name": "networkInterfaces",
-                    "count": "[length(parameters('moduleCreateNetworkInterfaces').lbNics)]"
+                    "count": "[length(parameters('moduleCreateNetworkInterfaces').nics)]"
             },
             "type": "Microsoft.Network/networkInterfaces",
             "comments": "Module to create one or more Network Interfaces",
