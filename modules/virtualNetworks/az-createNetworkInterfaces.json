@@ -41,7 +41,7 @@
                             },
                             "applicationSecurityGroups": [
                                 {
-                                    "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null')),json('null'),'id')]": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null')), parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,resourceId('Microsoft.Network/applicationSecurityGroups',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,parameters('suffixes').asgSuffix)))]"
+                                    "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null')),'false','id')]": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null')), parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,resourceId('Microsoft.Network/applicationSecurityGroups',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,parameters('suffixes').asgSuffix)))]"
                                 }
                             ],
                             "loadBalancerBackendAddressPools": [
