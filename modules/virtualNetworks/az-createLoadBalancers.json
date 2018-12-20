@@ -134,8 +134,6 @@
                                             "id": "[concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/probes/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].probeName)]"
                                         }
                                     }
-                                
-                            
                         }
                     }   
                 ]

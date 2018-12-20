@@ -46,12 +46,13 @@
                             ],
                             "loadBalancerBackendAddressPools": [
                                 {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/backendAddressPools/',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName)]"
+                                    "id": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName,json('null')),parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName,concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/backendAddressPools/',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].backendAddressPoolName))]"
+                                    
                                 }
                             ],
                             "loadBalancerInboundNatRules": [
                                 {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/inboundNatRules/',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].inboundNatRulesname)]"
+                                    "id": "[if(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].inboundNatRulesname,json('null')),parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].inboundNatRulesname,concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/inboundNatRules/',parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].inboundNatRulesname))]"
                                 }
                             ]
                         }
