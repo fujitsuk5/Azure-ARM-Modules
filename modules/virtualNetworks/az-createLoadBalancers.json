@@ -50,8 +50,8 @@
                                 "name": "loadBalancingRules",
                                 "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules)]",
                                 "input": {
-                                    "loadBalancingRules": [
-                                        {
+                                    
+                                        
                                             "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].name]",
                                             "properties": {
                                                 "frontendIPConfiguration": {
@@ -70,9 +70,9 @@
                                                 }
                                             }
                                         }
-                                    ]
+                                    
                                 }
-                            }   
+                                 
                         ]
                     }
                 ],
