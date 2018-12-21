@@ -42,7 +42,23 @@
                     {
                         "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].backendAddressPoolName]"
                     }
-                ],
+                ]
+            }
+        }
+    ],
+    "resources": [
+        {
+            "copy" : {
+                    "name": "loadBalancers",
+                    "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers)]"
+            },
+            "type": "Microsoft.Network/loadBalancers",
+            "comments": "Module to create one or more Load Balancers",
+            "apiVersion": "2018-08-01",
+            "name": "[toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix))]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateLoadBalancers').location, json('null')), variables('defaultLocation'),parameters('moduleCreateLoadBalancers').location)]",
+            "properties": {
                 "copy": [
                     {
                         "name": "loadBalancingRules",
@@ -71,9 +87,24 @@
                                 }
                             ]
                         }
-                    }   
-                ],
-            
+                    }
+                ]   
+            }
+        }
+    ],
+    "resources": [
+        {
+            "copy" : {
+                    "name": "loadBalancers",
+                    "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers)]"
+            },
+            "type": "Microsoft.Network/loadBalancers",
+            "comments": "Module to create one or more Load Balancers",
+            "apiVersion": "2018-08-01",
+            "name": "[toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix))]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateLoadBalancers').location, json('null')), variables('defaultLocation'),parameters('moduleCreateLoadBalancers').location)]",
+            "properties": {
                 "copy": [
                     {
                         "name": "probes",
@@ -89,8 +120,23 @@
                             }
                         }
                     }
-                ],
-
+                ]
+            }
+        }
+    ],
+    "resources": [
+        {
+            "copy" : {
+                     "name": "loadBalancers",
+                    "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers)]"
+            },
+            "type": "Microsoft.Network/loadBalancers",
+            "comments": "Module to create one or more Load Balancers",
+            "apiVersion": "2018-08-01",
+            "name": "[toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix))]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateLoadBalancers').location, json('null')), variables('defaultLocation'),parameters('moduleCreateLoadBalancers').location)]",
+            "properties": {
                 "copy": [
                     {
                         "name": "inboundNatRules",
