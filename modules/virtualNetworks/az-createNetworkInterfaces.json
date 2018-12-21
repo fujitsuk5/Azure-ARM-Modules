@@ -62,6 +62,37 @@
             }
         }
       ], 
+      "resources": [
+        {
+            "copy" : {
+                    "name": "networkInterfaces",
+                    "count": "[length(parameters('moduleCreateNetworkInterfaces').nics)]"
+            },
+            "type": "Microsoft.Network/networkInterfaces",
+            "comments": "Module to create one or more Network Interfaces",
+            "apiVersion": "2018-08-01",
+            "condition" : "[equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null'))]",
+            "name": "[concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName,parameters('suffixes').nicSuffix)]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateNetworkInterfaces').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkInterfaces').location)]",
+            "properties": {
+                "ipConfigurations": [   
+                    { 
+                        "name": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].ipConfigName]",
+                        "properties": {
+                            "privateIPAllocationMethod": "[parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].privateIPAllocationMethod]",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].pipName,parameters('suffixes').publicIPSuffix))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets',concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].vnetName,parameters('suffixes').vnetSuffix),concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].subnetName,parameters('suffixes').subnetSuffix))]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+      ],
     "outputs": {
     }
 }
