@@ -24,7 +24,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "comments": "Module to create one or more Network Interfaces",
             "apiVersion": "2018-08-01",
-            "condition" : "[equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null'))]",
+            "condition" : "[not(equals(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].aSGName,json('null')))]",
             "name": "[concat(parameters('moduleCreateNetworkInterfaces').nics[copyIndex('networkInterfaces')].nicName,parameters('suffixes').nicSuffix)]",
             "tags": "[parameters('customTages')]",
             "location": "[if(equals(parameters('moduleCreateNetworkInterfaces').location, json('null')), variables('defaultLocation'), parameters('moduleCreateNetworkInterfaces').location)]",
