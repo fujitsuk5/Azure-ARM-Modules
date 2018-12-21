@@ -110,51 +110,6 @@
                             
                         }
                     }
-                ],
-                "copy": [
-                    {
-                        "name": "loadBalancingRules",
-                        "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules)]",
-                        "input": {
-                            "loadBalancingRules": [
-                                {
-                                    "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].name]",
-                                    "properties": {
-                                        "frontendIPConfiguration": {
-                                            "id": "[concat( resourceId('Microsoft.Network/loadBalancers',  toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,      parameters('suffixes').extLoadbalancerSuffix))),'/frontendIPConfigurations/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName)]"
-                                        },
-                                        "backendAddressPool": {
-                                            "id": "[concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/backendAddressPools/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].backendAddressPoolName)]"
-                                        },
-                                        "protocol": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].protocol]",
-                                        "frontendPort": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].frontendPort]",
-                                        "backendPort": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].backendPort]",
-                                        "enableFloatingIP": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].enableFloatingIP]",
-                                        "idleTimeoutInMinutes": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].idleTimeoutInMinutes]",
-                                        "probe": {
-                                            "id": "[concat(resourceId('Microsoft.Network/loadBalancers',toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix))),'/probes/',parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].loadBalancingRules[copyIndex('loadBalancingRules')].probeName)]"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }   
-                ],
-                
-                "copy": [
-                    {
-                        "name": "probes",
-                        "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes)]",
-                        "input": {
-                            "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].probeName]",
-                            "properties": {
-                                "protocol": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].protocol]",
-                                "port": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].port]",
-                                "intervalInSeconds": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].intervalInSeconds]",
-                                "numberOfProbes": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].numberOfProbes]"
-                            }
-                        }
-                    }
                 ]
 
             }
