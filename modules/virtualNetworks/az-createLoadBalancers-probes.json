@@ -1,0 +1,72 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+      "moduleCreateLoadBalancers": {
+        "type": "object"
+      },
+      "customTages": {
+        "type": "object"
+      },
+      "suffixes" : {
+        "type": "object"
+      }
+    },
+    "variables": {
+      "defaultLocation": "[resourceGroup().location]"
+    },
+    "resources": [
+        {
+            "copy" : {
+                    "name": "loadBalancers",
+                    "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers)]"
+            },
+            "type": "Microsoft.Network/loadBalancers",
+            "comments": "Module to create one or more Load Balancers",
+            "apiVersion": "2018-08-01",
+            "name": "[toLower(concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].lbName,parameters('suffixes').extLoadbalancerSuffix))]",
+            "tags": "[parameters('customTages')]",
+            "location": "[if(equals(parameters('moduleCreateLoadBalancers').location, json('null')), variables('defaultLocation'),parameters('moduleCreateLoadBalancers').location)]",
+            "properties": {
+                "frontendIPConfigurations": [ 
+                    {
+                        "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].frontendIPConfigurationsName]",
+                        "properties": {
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',concat(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].nameOfExistingPublicIPAddress,parameters('suffixes').publicIPSuffix))]"
+                            }
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].backendAddressPoolName]"
+                    }
+                ],
+    
+                
+                "copy": [
+                    {
+                        "name": "probes",
+                        "count": "[length(parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes)]",
+                        "input": {
+                            "name": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].probeName]",
+                            "properties": {
+                                "protocol": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].protocol]",
+                                "port": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].port]",
+                                "intervalInSeconds": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].intervalInSeconds]",
+                                "numberOfProbes": "[parameters('moduleCreateLoadBalancers').loadbalancers[copyIndex('loadBalancers')].probes[copyIndex('probes')].numberOfProbes]"
+                            }
+                        }
+                    }
+                ]
+
+                
+            }
+        }
+                
+    ], 
+    "outputs": {
+    }
+}
+
